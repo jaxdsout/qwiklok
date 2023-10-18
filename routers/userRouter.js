@@ -1,18 +1,20 @@
 // ROOT IS "http://timepunch.com"
 
-const express = require(express);
+const express = require('express');
 const router = express.Router();
 
-router.get("/", index)
+const { createUser, getAllUsers} = require("../controllers/userController")
 
-router.get("/user/admin", adminHome)
+router.get("/", getAllUsers)
 
-router.post("/new-user", createNewUser)
+// router.get("/admin", adminHome)
 
-router.get("/user/:id", userHome)
+router.post("/new-user", createUser)
 
-router.put("user/:id/edit", editUser)
+// router.get("/:id", userHome)
 
-router.delete("user/:id/delete", deleteUser)
+// router.put("/:id/edit", editUser)
+
+// router.delete("/:id/delete", deleteUser)
 
 module.exports = router
