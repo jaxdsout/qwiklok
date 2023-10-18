@@ -1,4 +1,4 @@
-// ROOT IS "http://timepunch.com"
+// ROOT IS "/user"
 
 const express = require('express');
 const router = express.Router();

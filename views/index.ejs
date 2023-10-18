@@ -1,0 +1,11 @@
+<body>
+    <h1>Here is the login page</h1>
+    <br>
+    <% if(user) { %>
+        <div class="profileInfo">
+            <p class="name">
+                USERNAME: <%= user.name.charAt(0).toUpperCase() + user.name.slice(1) %>
+            </p>
+        </div>
+    <% } %>
+</body>
