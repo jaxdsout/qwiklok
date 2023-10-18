@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require("../db/connection");
 
-const punchSchema = mongoose.Schema({
+const PunchSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -15,6 +15,6 @@ const punchSchema = mongoose.Schema({
     hours: Number
 })
 
-const TimePunch = mongoose.model("User", punchSchema)
+const TimePunch = mongoose.model("Punch", PunchSchema)
 
-module.exports = { TimePunch }
+module.exports = TimePunch
