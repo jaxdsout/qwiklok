@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require("../db/connection");
 
-const userSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     username: String,
     startDate: String,
     admin: Boolean,
@@ -8,6 +8,6 @@ const userSchema = mongoose.Schema({
     hourlyPay: Number
 })
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", UserSchema)
 
-module.exports = { User }
+module.exports = User
