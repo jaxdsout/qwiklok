@@ -1,17 +1,18 @@
-const mongoose = require("mongoose");
+const mongoose = require("../db/connection");
 
-const projSchema = mongoose.Schema({
+const ProjSchema = new mongoose.Schema({
     name: String,
     location: String,
     active: Boolean,
     projectType: String,
     startDate: String,
-    users: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
+    generalContractor: String
+    // users: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // }],
 })
 
-const Project = mongoose.model("User", projSchema)
+const Project = mongoose.model("Project", ProjSchema)
 
-module.exports = { Project }
+module.exports = Project
