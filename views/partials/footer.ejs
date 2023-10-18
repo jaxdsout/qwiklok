@@ -2,6 +2,15 @@
 <br>
 <br>
 <br>
-<span> //  </span><a href='/'>HOME</a>
+<ul>
+    <li><a href='/'>HOME</a></li>
+    <li><a href='/secured'>SECURE</a></li>
+
+    <% if(!isAuthenticated) { %>
+    <li><a href='/login/'>Login</a></li>
+    <% } else { %>
+    <li><a href='/logout/'>Logout</a></li>
+    <% } %>
+</ul>
 <br>
 <br>
