@@ -1,29 +1,33 @@
 [
 {
-    "username" : "chaz",
-    "startDate": "01/01/2001",
-    "admin": true,
+    "username" : "Chaz",
+    "fullname": "Charles Goodson",
+    "PIN": 45689,
+    "startDate": "05/05/1998",
     "position": "Owner",
     "hourlyPay": 250
 },
 {
-    "username" : "eric",
+    "username" : "Eric",
+    "fullname": "Eric Woodall",
+    "PIN": 35678,
     "startDate": "05/12/2011",
-    "admin": false,
     "position": "Master Electrician",
     "hourlyPay": 120
 },
 {
-    "username" : "julian",
+    "username" : "Julian",
+    "fullname": "Julian Casablancas",
+    "PIN": 11245,
     "startDate": "04/01/2022",
-    "admin": false,
     "position": "Apprentice",
     "hourlyPay": 35
 },
 {
-    "username" : "peter",
+    "username" : "Peter",
+    "fullname": "Peter Pettigrew",
+    "PIN": 65456,
     "startDate": "03/01/2002",
-    "admin": false,
     "position": "Journeyman",
     "hourlyPay": 70
 }
