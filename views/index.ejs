@@ -1,11 +1,15 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+
 <body>
-    <h1>Here is the login page</h1>
+ 
+<h2> LOGIN: </h2>
+
+<form class="login" method="POST" action="/user/">
+    <label for="PIN">PIN:</label>
+          <input id="PIN" type="PIN" name="PIN"/>
     <br>
-    <% if(user) { %>
-        <div class="profileInfo">
-            <p class="name">
-                USERNAME: <%= user.name.charAt(0).toUpperCase() + user.name.slice(1) %>
-            </p>
-        </div>
-    <% } %>
+    <button type="submit">Login</button>
+</form>
 </body>

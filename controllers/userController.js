@@ -1,21 +1,20 @@
 const User = require('../models/user');
 
-const getAllUsers = async (req, res) => {
-    const allMyUsers = await User.find();
-    console.log(allMyUsers);
-    res.redirect("/user")
+const adminPage = (req, res) => {
+    res.render("admin")
 }
 
-const createUser = async (req, res) => {
-    console.log(req.body);
-    const newUser = await User.create(req.body)
-    console.log(newUser)
-    res.redirect("/user")
+const contractorPage = (req, res) => {
+    res.render("contractor")
 }
 
+const indexPage = (req, res) => {
+    res.render("index")
+}
 
 module.exports = {
-    createUser,
-    getAllUsers
+    adminPage,
+    contractorPage,
+    indexPage
 }
 
