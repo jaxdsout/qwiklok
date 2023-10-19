@@ -16,12 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"))
 
-// ROUTERS
-const loginRouter = require("./routers/loginRouter")
-app.use("/", loginRouter)
 
+// ROUTERS
 const userRouter = require("./routers/userRouter")
-app.use("/user", userRouter);
+app.use("/", userRouter);
+
+const adminRouter = require("./routers/adminRouter")
+app.use("/admin", adminRouter)
 
 
 // START SERVER

@@ -3,27 +3,28 @@
 const express = require('express');
 const router = express.Router();
 
-const { adminPage, adminPageUser, adminPageProject, userPage, userLogin, createUser, findAllUsers, createProject, findAllProjects } = require("../controllers/userController")
+const { homePage, 
+        loginUser,      
+        createKlok,
+        userProfile,
+        updateProfile,
+        projectProfile,
+        updat
+    } = require("../controllers/userController")
 
-// router.get("/", userPage)
+router.get("/", homePage)
 
-// router.get("/login", userLogin)
+router.post("/login", loginUser)
 
-router.post("/admin/new-user", createUser)
+router.post("/klok", createKlok)
 
-router.post("/admin/new-project", createProject)
+router.get("/user/:id", userProfile)
 
-router.get("/admin/all-users", findAllUsers)
+// router.put("/user/:id/edit", updateUser)
 
-router.get("/admin/all-projects", findAllProjects)
+// router.get("/project/:id", projectProfile)
 
-router.get("/admin", adminPage) 
-
-router.get("/admin/modify-users", adminPageUser)
-
-router.get("/admin/modify-projects", adminPageProject)
-
-
+// router.put("/project/:id/edit", updateProfile)
 
 
 module.exports = router
