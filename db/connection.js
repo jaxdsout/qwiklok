@@ -7,7 +7,6 @@ process.env.NODE_ENV === 'production'
 ?
 process.env.DB_URL
 :
-//`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.9wazp9r.mongodb.net/timepuncherDB?retryWrites=true&w=majority`;
 `mongodb+srv://${process.env.SERVERN}:${process.env.SERVERP}@cluster0.9wazp9r.mongodb.net/timepuncherDB?retryWrites=true&w=majority`;
        
 mongoose.connect(database_url, {

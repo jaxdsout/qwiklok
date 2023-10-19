@@ -1,73 +1,44 @@
 const User = require('../models/user');
-const Project = require('../models/project')
+const Klok = require("../models/klok")
 
-
-// const userPage = (req, res) => {
-//     res.render("user")
-// }
-
-const adminPage = (req, res) => {
-    res.render("admin")
+const homePage = (req, res) => {
+    res.render("home")
 }
 
-const adminPageUser = async (req, res) => {
-    const users = await User.find();
-    res.render("modifyu", { users })
+const userProfile = (req, res) => {
+    res.render("user")
 }
 
-const adminPageProject = async (req, res) => {
-    const projects = await Project.find();
-    res.render("modifyp", { projects })
-}
-
-
-const createUser = async (req, res) => {
-    const newUser = await User.create(req.body)
-    console.log(newUser);
-    res.redirect("/user/admin/modify-users")
-}
-
-const findAllUsers = async (req, res) => {
-    try {
-        const users = await User.find()
-        res.json({
-        "data": users,
-        "status": 200
-        })
-    }
-    catch (error) {
-      next(error);
+const loginUser = async (req, res) => {
+    try{
+        const userPIN = req.body.PIN;
+        const user = await User.findOne({ PIN: userPIN });
+        if (user) {
+            res.render("user", { user } )
+        } else {
+            res.send('User not found')
+        }
+    } catch(e) {
     }
 }
 
-const createProject = async (req, res) => {
-    const newProj = await Project.create(req.body)
-    console.log(newProj);
-    res.redirect("/user/admin/modify-projects")
-}
-
-const findAllProjects = async (req, res) => {
-    try {
-        const projects = await Project.find()
-        res.json({
-        "data": projects,
-        "status": 200
-        })
-    }
-    catch (error) {
-      next(error);
-    }
+const createKlok = async (req, res) => {
+    const newKlok = await Klok.create({
+        user: req.params._id,
+        projectID: req.body.projectID,
+        date: req.body.date,
+        description: req.body.description,
+        hours: req.body.hours
+    });
+    
+    console.log(newKlok)
+    res.redirect("/user")
 }
 
 module.exports = {
-    adminPage,
-    // userPage,
-    createUser,
-    findAllUsers,
-    createProject,
-    findAllProjects,
-    adminPageUser,
-    adminPageProject,
-    // userLogin
+    createKlok,
+    loginUser,
+    homePage,
+    userProfile
 }
 

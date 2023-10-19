@@ -3,9 +3,11 @@
 <h1> USER PAGE </h1>
 <div class="maincontainer klok">
   <div class="newKlok">
-    <h5> HEY <%= userPIN %></h5>
-    <h2> KLOK YOUR HOURS </h2>
-    <form class="createPunch" method="POST" action="/user/">
+    <% if (user) { %>
+      <h1> <%= user.username.toUpperCase() %></h1>
+    <% } %>
+    <h3> KLOK YOUR HOURS </h3>
+    <form class="createKlok" method="POST" action="/klok/">
       <label for="projectID">Project ID:</label>
           <input id="projectID" type="text" name="projectID"/>
         <br>
