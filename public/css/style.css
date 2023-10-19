@@ -6,9 +6,18 @@ h1 {
     font-weight: 500;
 }
 /* container and layout */
-.container {
+.maincontainer {
     display: flex;
     flex-direction: column;
+    width: 50%;
+    background-color: white;
     align-items: center;
     padding: 20px;
 }
+
+.admin {
+    display: flex;
+    flex-flow: column nowrap;
+    column-count: 2;
+}
+

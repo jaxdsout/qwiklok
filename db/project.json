@@ -2,25 +2,25 @@
 {
     "name": "Boze Residence",
     "location": "Napa, CA",
-    "active": true,
-    "projectType": "Bid",
+    "projectID": "boze",
     "startDate": "12/10/2022",
-    "generalContractor": "DNAnderson Construction"
+    "active": true,
+    "projectType": "Bid"
 },
 {
     "name": "Summit Residence",
     "location": "Saint Helena, CA",
-    "active": true,
-    "projectType": "Time & Material",
+    "projectID": "summithelena",
     "startDate": "06/15/2023",
-    "generalContractor": "Vino Design Build"
+    "active": true,
+    "projectType": "Time & Material"
 },
 {
     "name": "Money Lane",
     "location": "Napa, CA",
-    "active": true,
-    "projectType": "Bid",
+    "projectID": "moneylane",
     "startDate": "03/10/2023",
-    "generalContractor": "DNAnderson Construction"
+    "active": true,
+    "projectType": "Bid"
 }
 ]

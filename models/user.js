@@ -2,8 +2,9 @@ const mongoose = require("../db/connection");
 
 const UserSchema = new mongoose.Schema({
     username: String,
+    fullname: String,
+    PIN: Number,
     startDate: String,
-    admin: Boolean,
     position: String,
     hourlyPay: Number
 })
