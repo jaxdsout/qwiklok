@@ -7,6 +7,10 @@ const ProjSchema = new mongoose.Schema({
     startDate: String,
     active: Boolean,
     projectType: String,
+    workers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 const Project = mongoose.model("Project", ProjSchema)

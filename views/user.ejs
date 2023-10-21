@@ -4,10 +4,10 @@
 <div class="maincontainer klok">
   <div class="newKlok">
     <% if (user) { %>
-      <h1> <%= user.username.toUpperCase() %></h1>
+      <h1> <%= user %></h1>
     <% } %>
     <h3> KLOK YOUR HOURS </h3>
-    <form class="createKlok" method="POST" action="/klok/">
+    <form class="createKlok" method="POST" action="/user/klok/">
       <label for="projectID">Project ID:</label>
           <input id="projectID" type="text" name="projectID"/>
         <br>
@@ -26,9 +26,7 @@
   <div class="recentKloks">
     <h2> RECENT KLOKS </h2>
     <ul>
-      <li>
-        <!-- COde to grab recent kloks -->
-      </li>
+      <li></li>
     </ul>
   </div>
 </div>

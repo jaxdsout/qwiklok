@@ -11,6 +11,6 @@ const KlokSchema = new mongoose.Schema({
     hours: Number
 })
 
-const QwiKlok = mongoose.model("QwiKlok", KlokSchema)
+const QwiKlok = mongoose.model("Klok", KlokSchema)
 
 module.exports = QwiKlok
