@@ -57,16 +57,17 @@
 
 <h2>ALL PROJECTS</h2>
 <ul>
-    <li><!-- get all projects displayed --></li>
+    <% projects.forEach(project => { %>
+        <li><%= project.name %></li>
+    <% }) %>
 </ul>
-
 
 <h2>ALL USERS</h2>
 <ul>
-    <li><!-- get all users displayed --></li>
+    <% users.forEach(user => { %>
+        <li><%= user.name %></li>
+    <% }) %>
 </ul>
-
-
 
 </body>
 
