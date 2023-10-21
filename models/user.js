@@ -6,7 +6,11 @@ const UserSchema = new mongoose.Schema({
     PIN: Number,
     startDate: String,
     position: String,
-    hourlyPay: Number
+    hourlyPay: Number,
+    kloks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Klok'
+    }]
 })
 
 const User = mongoose.model("User", UserSchema)

@@ -5,8 +5,9 @@ const homePage = (req, res) => {
     res.render("home")
 }
 
-const userProfile = (req, res) => {
-    res.render("user")
+const userProfile = async (req, res) => {
+    const user = await User.findById(req.params._id)
+    res.render("user", { user })
 }
 
 const loginUser = async (req, res) => {
@@ -14,25 +15,26 @@ const loginUser = async (req, res) => {
         const userPIN = req.body.PIN;
         const user = await User.findOne({ PIN: userPIN });
         if (user) {
-            res.render("user", { user } )
+            res.redirect(`/user/${user._id}`)  
         } else {
             res.send('User not found')
         }
+        res.send({ user }) 
     } catch(e) {
     }
 }
 
 const createKlok = async (req, res) => {
+    const user = await User.findOne(req.params._id)
     const newKlok = await Klok.create({
-        user: req.params._id,
+        user: user._id,
         projectID: req.body.projectID,
         date: req.body.date,
         description: req.body.description,
         hours: req.body.hours
     });
-    
     console.log(newKlok)
-    res.redirect("/user")
+    res.redirect(`/user/${user._id}`)
 }
 
 module.exports = {

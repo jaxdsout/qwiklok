@@ -24,6 +24,16 @@ const adminPageKlok = async (req, res) => {
     res.render("modifyk", { kloks })
 }
 
+const editUserPage = async (req, res) => {
+    const user = await User.findById(req.params._id);
+    res.render("edituser", { user })
+}
+
+const editProjectPage = async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    res.render("editproject", { project })
+}
+
 
 
 // CREATE
@@ -106,17 +116,55 @@ const updateProject = async (req, res) => {
         res.redirect("/admin/update-user/:id")
 }
 
+// DELETE
+
+const deleteUser = async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params._id);
+        if (deleteUser) {
+            console.log("Deleted User:", deletedUser);
+            res.redirect("/admin/modify-user");
+        } else {
+            console.log("User not found.");
+            res.status(404).send("User not found.");
+        }
+    } catch (error) {
+        console.error("Error deleting User:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+const deleteProject = async (req, res) => {
+    try {
+        const deletedProj = await Project.findByIdAndDelete(req.params.id);
+        if (deleteProject) {
+            console.log("Deleted Project:", deletedProj);
+            res.redirect("/admin/modify-project");
+        } else {
+            console.log("Project not found.");
+            res.status(404).send("Project not found.");
+        }
+    } catch (error) {
+        console.error("Error deleting Project:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     adminPage,
     adminPageUser,
     adminPageProject,
     adminPageKlok,
+    editUserPage,
+    editProjectPage,
     createUser,
     createProject,
     createKlok,
     findAllUsers,
     findAllProjects,
     updateUser,
-    updateProject
+    updateProject,
+    deleteUser,
+    deleteProject
 }
 

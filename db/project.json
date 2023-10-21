@@ -5,7 +5,8 @@
     "projectID": "boze",
     "startDate": "12/10/2022",
     "active": true,
-    "projectType": "Bid"
+    "projectType": "Bid",
+    "workers": []
 },
 {
     "name": "Summit Residence",
@@ -13,7 +14,8 @@
     "projectID": "summithelena",
     "startDate": "06/15/2023",
     "active": true,
-    "projectType": "Time & Material"
+    "projectType": "Time & Material",
+    "workers": []
 },
 {
     "name": "Money Lane",
@@ -21,6 +23,7 @@
     "projectID": "moneylane",
     "startDate": "03/10/2023",
     "active": true,
-    "projectType": "Bid"
+    "projectType": "Bid",
+    "workers": []
 }
 ]

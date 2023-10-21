@@ -5,7 +5,8 @@
     "PIN": 45689,
     "startDate": "05/05/1998",
     "position": "Owner",
-    "hourlyPay": 250
+    "hourlyPay": 250,
+    "kloks": []
 },
 {
     "username" : "Eric",
@@ -13,7 +14,8 @@
     "PIN": 35678,
     "startDate": "05/12/2011",
     "position": "Master Electrician",
-    "hourlyPay": 120
+    "hourlyPay": 120,
+    "kloks": []
 },
 {
     "username" : "Julian",
@@ -21,7 +23,8 @@
     "PIN": 11245,
     "startDate": "04/01/2022",
     "position": "Apprentice",
-    "hourlyPay": 35
+    "hourlyPay": 35,
+    "kloks": []
 },
 {
     "username" : "Peter",
@@ -29,6 +32,7 @@
     "PIN": 65456,
     "startDate": "03/01/2002",
     "position": "Journeyman",
-    "hourlyPay": 70
+    "hourlyPay": 70,
+    "kloks": []
 }
 ]

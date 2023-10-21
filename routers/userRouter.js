@@ -7,24 +7,15 @@ const { homePage,
         loginUser,      
         createKlok,
         userProfile,
-        updateProfile,
-        projectProfile,
-        updat
     } = require("../controllers/userController")
 
 router.get("/", homePage)
 
 router.post("/login", loginUser)
 
-router.post("/klok", createKlok)
-
 router.get("/user/:id", userProfile)
 
-// router.put("/user/:id/edit", updateUser)
-
-// router.get("/project/:id", projectProfile)
-
-// router.put("/project/:id/edit", updateProfile)
+router.post("/user/klok", createKlok)
 
 
 module.exports = router
