@@ -1,59 +1,79 @@
 const express = require('express');
 const router = express.Router();
 
-const { createUser, 
-        findAllUsers, 
-        createProject, 
-        findAllProjects, 
-        adminPage, 
-        adminPageProject, 
-        adminPageUser, 
-        adminPageKlok,
-        updateUser,
-        updateProject,
-        editUserPage,
-        editProjectPage,
-        deleteUser,
-        deleteProject
+const { checkAuth } = require("../middleware/checkauth")
+
+const { 
+        // createUser, 
+        // findAllUsers, 
+        // createProject, 
+        // findAllProjects, 
+        // adminPageKlok,
+        // updateUser,
+        // updateProject,
+        // deleteUser,
+        // deleteProject,
+        // createKlok,
+        homePage, 
+        sendNewAdminForm,      
+        sendLoginForm,
+        login,
+        logout,
+        createNewAdmin,
+        adminHome
     } = require("../controllers/adminController")
 
-// PAGES
-
-router.get("/", adminPage) 
-
-router.get("/modify-user", adminPageUser)
-
-router.get("/modify-project", adminPageProject)
-
-router.get("/modify-klok", adminPageKlok)
-
-router.get("/modify-user/:id", editUserPage)
-
-router.get("/modify-project/:id", editProjectPage)
 
 
-// CREATE 
-router.post("/new-user", createUser)
 
-router.post("/new-project", createProject)
+router.get("/", homePage)
+
+router.get("/admin/home", adminHome)
+
+// CREATE
+router.get("/admin/new", sendNewAdminForm);
+
+router.post("/admin/signup", createNewAdmin);
+
+//LOGIN
+router.get("/admin/login", sendLoginForm);
+
+router.post("/admin/login", login);
+
+//LOGOUT
+router.get("/admin/logout", logout);
 
 
-// READ
-router.get("/all-users", findAllUsers)
+// // CREATE 
+// router.post("/admin/new-user", createUser)
 
-router.get("/all-projects", findAllProjects)
+// router.post("/admin/new-project", createProject)
+
+
+// // READ
+// router.get("/admin/all-users", findAllUsers)
+
+// router.get("/admin/all-projects", findAllProjects)
 
 
 // UPDATE
-router.put("/modify-user/updated", updateUser)
+// router.put("/admin/update-user/", updateUser)
 
-router.put("/modify-project/updated", updateProject)
+// router.put("/admin/update-project/", updateProject)
 
 
-// DELETE
-router.delete("/modify-user/deleted", deleteUser)
+// // DELETE
+// router.delete("/admin/delete-user/", deleteUser)
 
-router.delete("/modify-project/deleted", deleteProject)
+// router.delete("/admin/delete-project/", deleteProject)
+
+
+
+
+// USER FUNCTIONS
+
+// router.post("/user/klok", createKlok)
+
 
 
 
