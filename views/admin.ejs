@@ -1,8 +1,35 @@
 <body>
 <h1>ADMIN PAGE</h1>
 <br>
-<br>
 
+<!-- Tab Links -->
+<div class="tab">
+    <button class="tablinks" onclick="openSection(e, 'allUsers')">All Users</button>
+    <button class="tablinks" onclick="openSection(e, 'allProjects')">All Projects</button>
+    <button class="tablinks" onclick="openSection(e, 'createUser')">Create User</button>
+    <button class="tablinks" onclick="openSection(e, 'createProject')">Create Project</button>
+</div>
+
+<!-- Tab Content -->
+<div id="allUsers" class="tabcontent">
+    
+    <h2>ALL USERS</h2>
+    <ul>
+        <li><!-- get all users displayed --></li>
+    </ul>
+</div>
+
+<div id="allProjects" class="tabcontent">
+
+    <h2>ALL PROJECTS</h2>
+    <ul>
+        <li><!-- get all projects displayed --></li>
+    </ul>
+</div>
+    
+
+
+<div id="createUser" class="tabcontent">
 <h2>ADD NEW USER</h2>
 <form class="createUser" method="POST" action="/newuser">
       <label for="name">Name:</label>
@@ -29,7 +56,11 @@
 
             <button type="submit">Add Employee</button>
 </form>
+</div>
 
+
+
+<div id="createProject" class="tabcontent">
 
 <h2>ADD PROJECT</h2>
 <form class="createProject" method="POST" action="/newproject">
@@ -54,20 +85,10 @@
 
             <button type="submit">Add Project</button>
 </form>
-
-<h2>ALL PROJECTS</h2>
-<ul>
-    <li><!-- get all projects displayed --></li>
-</ul>
+</div>
 
 
-<h2>ALL USERS</h2>
-<ul>
-    <li><!-- get all users displayed --></li>
-</ul>
-
-
-
+<script src="index.js" type="text/javascript"></script>
 </body>
 
 

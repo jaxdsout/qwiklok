@@ -2,7 +2,8 @@
 const express = require('express');
 const app = express();
 const ejsLayouts = require('express-ejs-layouts');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+const path = require('path');
 // const { auth, requiresAuth } = require('express-openid-connect');
 require('dotenv').config()
 
@@ -19,6 +20,7 @@ require('dotenv').config()
 app.set('view engine', 'ejs');
 app.use(ejsLayouts);
 app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
