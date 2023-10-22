@@ -1,0 +1,40 @@
+<div class="maincontainer admin">
+    <div class="newProject">
+        <h2>EDIT PROJECT</h2>
+        <form class="createProject" method="POST" action="/admin/new-project">
+            <fieldset>
+                <label for="name">Name:</label>
+                <input id="name" type="text" name="name"/>
+            </fieldset>
+            <fieldset>
+                <label for="location">Location:</label>
+                <input id="location" type="text" name="location"/>
+            </fieldset>
+            <fieldset>
+                <label for="startDate">Start Date:</label>
+                <input id="startDate" type="date" name="startDate"/>
+            </fieldset>
+            <fieldset>
+                <label for="active">Active:</label>
+                <input id="active" type="checkbox" name="active"/>
+            </fieldset>
+            <fieldset>
+                <label for="projectType">Project Type:</label>
+                <input id="projectType" type="text" name="projectType"/>
+            </fieldset>
+            <fieldset>
+                <button type="submit">Edit Project</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div>
+        <h2>DELETE PROJECT</h2>
+        <h5>WARNING: NO GOING BACK FROM HERE</h5>
+        <form class="deleteUser" method="POST" action="/admin/delete-user/?_method=DELETE">
+            <fieldset>
+                <button type="submit">Delete Project</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

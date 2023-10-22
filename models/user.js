@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
     username: String,
     fullname: String,
-    PIN: Number,
+    PIN: String,
     startDate: String,
     position: String,
     hourlyPay: Number,

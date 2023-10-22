@@ -1,0 +1,41 @@
+
+<div class="logout">
+  <button onclick="window.location.href='/user/logout'">Logout</button>
+</div>
+
+<h1> USER PAGE </h1>
+<div class="maincontainer klok">
+  <div class="newKlok">
+    <% if (user) { %>
+      <h1> <%= user.username %></h1>
+    <% } %>
+    <h3> KLOK YOUR HOURS </h3>
+    <form class="createKlok" method="POST" action="/user/klok/">
+      <fieldset>
+        <label for="projectID">Project ID:</label>
+        <input id="projectID" type="text" name="projectID"/>
+      </fieldset>
+      <fieldset>
+        <label for="date">Date:</label>
+        <input id="date" type="date" name="date"/>
+      </fieldset>
+      <fieldset>
+        <label for="description">Description:</label>
+        <input id="description" type="text" name="description"/>
+      </fieldset>
+      <fieldset>
+        <label for="hours">Hours:</label>
+        <input id="hours" type="number" name="hours"/>
+      </fieldset>
+      <fieldset>
+        <button type="submit">Log Time</button>
+      </fieldset>
+  </div>
+  <div class="recentKloks">
+    <h2> RECENT KLOKS </h2>
+    <ul>
+  
+    </ul>
+  </div>
+</div>
+

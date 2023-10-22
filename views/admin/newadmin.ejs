@@ -1,21 +1,24 @@
 <div class="newUser">
     <h2>ADD NEW ADMIN</h2>
     <form class="createUser" method="POST" action="/admin/signup/">
-        <label for="username">Username:</label>
+        <fieldset>
+            <label for="username">Username:</label>
             <input id="username" type="text" name="username"/>
-        <br>
-        <label for="fullname">Full Name:</label>
+        </fieldset>
+        <fieldset>
+              <label for="fullname">Full Name:</label>
             <input id="fullname" type="text" name="fullname"/>
-        <br>
-        <label for="email">Email:</label>
+        </fieldset>
+        <fieldset>
+            <label for="email">Email:</label>
             <input id="email" type="email" name="email"/>
-        <br>
-        <label for="password">Password:</label>
+        </fieldset>
+        <fieldset>
+             <label for="password">Password:</label>
             <input id="password" type="password" name="password"/>
-        <br>
-            <input type="submit" value="submit">
-
-            or <a href="/admin/login">Login</a>
-        
+        </fieldset>
+        <fieldset>
+            <input type="submit" value="submit">  or <a href="/admin/login">Login</a>
+        </fieldset>
     </form>
 </div>
