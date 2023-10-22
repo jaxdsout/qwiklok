@@ -1,0 +1,44 @@
+<div class="maincontainer admin">
+    <div class="editUser">
+        <h2>EDIT EXISTING USER</h2>
+        <form class="createUser" method="POST" action="/admin/edit-user/?_method=PUT">
+            <fieldset>
+                <label for="username">Username:</label>
+                <input id="username" type="text" name="username"/>
+            </fieldset>
+            <fieldset>
+                <label for="fullmame">Full Name:</label>
+                <input id="fullname" type="text" name="fullname"/>
+            </fieldset>
+            <fieldset>
+                <label for="PIN">PIN:</label>
+                <input id="PIN" type="number" name="PIN"/>
+            </fieldset>
+            <fieldset>
+                <label for="startDate">Start Date:</label>
+                <input id="startDate" type="text" name="startDate"/>
+            </fieldset>
+            <fieldset>
+                <label for="position">Position:</label>
+                <input id="position" type="text" name="position"/>
+            </fieldset>
+            <fieldset>
+                <label for="hourlyPay">Pay Rate:</label>
+                <input id="hourlyPay" type="number" name="hourlyPay"/>
+            </fieldset>
+            <fieldset>
+                <button type="submit">Edit Employee</button>
+            </fieldset>    
+        </form>
+    </div>
+
+    <div>
+        <h2>DELETE USER</h2>
+        <h5>WARNING: NO GOING BACK FROM HERE</h5>
+        <form class="deleteUser" method="POST" action="/admin/delete-user/?_method=DELETE">
+            <fieldset>
+                <button type="submit">Delete Employee</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

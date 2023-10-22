@@ -4,9 +4,6 @@ const userData = require('./user.json')
 const Project = require('../models/project')
 const projectData = require('./project.json')
 
-const Admin = require('../models/admin')
-const adminData = require('./admin.json')
-
 async function seedDatabase() {
   try {
     await User.deleteMany();
