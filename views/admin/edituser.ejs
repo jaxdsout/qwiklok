@@ -1,7 +1,7 @@
 <div class="maincontainer admin">
     <div class="editUser">
         <h2>EDIT EXISTING USER</h2>
-        <form class="createUser" method="POST" action="/admin/edit-user/?_method=PUT">
+        <form class="createUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
             <fieldset>
                 <label for="username">Username:</label>
                 <input id="username" type="text" name="username"/>
@@ -35,7 +35,7 @@
     <div>
         <h2>DELETE USER</h2>
         <h5>WARNING: NO GOING BACK FROM HERE</h5>
-        <form class="deleteUser" method="POST" action="/admin/delete-user/?_method=DELETE">
+        <form class="deleteUser" method="POST" action="/admin/edit-user/<%= user.id %>/delete?_method=DELETE">
             <fieldset>
                 <button type="submit">Delete Employee</button>
             </fieldset>

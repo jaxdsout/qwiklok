@@ -5,25 +5,21 @@ const Klok = require("../models/klok");
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 
 const { JWT_KEY_SECRET } = require("../config");
-const { urlencoded } = require('body-parser');
+// const { urlencoded } = require('body-parser');
 
 
 
 
 // LOGIN - GET
 const sendPINForm = (req, res, next) => {
-
-    let isLoggedIn = false
-
+    let accessGranted = false
     if(req.cookies.access_token) {
-        isLoggedIn = true
+        accessGranted = true
     } 
-    
-    res.render('user/login.ejs', {isLoggedIn})
-
+    res.render('user/login.ejs', {accessGranted})
 }
 
 
@@ -31,7 +27,6 @@ const sendPINForm = (req, res, next) => {
 const userLogin = (req, res) => {
     User.findOne({ PIN: req.body.PIN })
         .then((user) => {
-            console.log(user.fullname, "found")
             if (!user){
                 return res.send('PIN not found')
             }
@@ -39,13 +34,12 @@ const userLogin = (req, res) => {
                 .then(() => {
                     const token = jwt.sign(
                         { user, PIN: user.PIN },
-                        JWT_KEY_SECRET,
-                    )
-                    console.log("logging in now")
+                        JWT_KEY_SECRET)
+                    console.log("logging in now", user.fullname)
                     return res.cookie('accesstoken', token)
-                        .redirect(`/user/home/`)
+                        .redirect(`/user/home/${user._id}`)
                 })
-        })
+    })
 }
 
 // LOGOUT
@@ -63,45 +57,47 @@ const userLogout = (req, res, next) => {
 
 // USER HOME PAGE
 const userHome = async (req, res) => {
-    // console.log(req.user);
-    // const userId = req.user.id;
-    // if (!userId) {
-    //   console.log("no cookie found!");
-    //   return res.redirect("/user/login");
-    // }
-    // const token = req.cookies.access_token
-    // const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
-  
-    // User.findById(userId).then((usr) => {
-    //   if (!usr) {
-    //     console.log("access denied, user does not exist");
-    //     res.redirect("/user/login");
-    //   } else {
-    //     if (req.cookies.access_token) {
-    //       isLoggedIn = true;
-    //     }
-    //     console.log("access granted, you may create a story");
-    const user = await User.findById(req.params.id)
-    console.log(user)
+        const user  = await User.findOne({_id: req.params.id})
         res.render("user/user.ejs", { user });
-      }
-//     });
-// }
-
+}
 
 // CREATE
 
+// const createKlok = async (req, res) => {
+//     const newKlok = await Klok.create({
+//         user: req.params.id,
+//         projectID: req.body.projectID,
+//         date: req.body.date,
+//         description: req.body.description,
+//         hours: req.body.hours
+//     })
+//     res.redirect(`/user/login`)
+// }
+
 const createKlok = async (req, res) => {
-    const newKlok = await Klok.create({
-        user: req.params._id,
+    try {
+      const newKlok = await Klok.create({
+        user: req.params.id,
         projectID: req.body.projectID,
         date: req.body.date,
         description: req.body.description,
         hours: req.body.hours
-    })
-    console.log(newKlok._id, "klok'd")
-    res.redirect("/user/home")
-}
+      });
+      console.log(newKlok)
+      const user = await User.findById(req.params.id);
+      console.log(user)
+      if (user) {
+        user.kloks.push(newKlok._id);
+        await user.save();
+      } else {
+      }
+      res.redirect(`/user/home/${user._id}`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('An error occurred while creating and updating klok.');
+    }
+};
+  
 
 
 module.exports = {

@@ -5,7 +5,7 @@ const Klok = require("../models/klok");
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 
 const { JWT_KEY_SECRET } = require("../config")
 
@@ -17,65 +17,50 @@ const homePage = (req, res) => {
 
 // NEW - SEND FORM
 const sendNewAdminForm = (req, res, next) => {
-
-    let isLoggedIn = false
-
+    let accessGranted = false
     if(req.cookies.access_token) {
-        isLoggedIn = true
+        accessGranted = true
     } 
-    res.render('admin/newadmin.ejs', {isLoggedIn})
-
+    res.render('admin/newadmin.ejs', {accessGranted})
 }
 
 // NEW - POST NEW ADMIN
 const createNewAdmin = (req, res, next) => {
-    console.log('Posting New Admin');
+    const requiredFields = ['email', 'password', 'fullname', 'organization', 'username'];
 
-    const requiredFields = ['username', 'email', 'fullname', 'password'];
     for(let i=0; i < requiredFields.length; i++) {
         const field = requiredFields[i]
         if(!(field in req.body)) {
             const errorMessage = `missing ${field} in request body`;
-            console.error(errorMessage);
             return res.send(errorMessage);
-        }
-    }
+    }}
 
     req.body.email = req.body.email.toLowerCase()
-
-    const { firstName, lastName, email, password } = req.body
+    const { email, password, fullname, organization, username } = req.body
 
     bcrypt.hash(password, 12)
         .then(encryptedPw => {
-            console.log(`Finished encrypting password: ${encryptedPw}`)
-            const newAdmin = { firstName, lastName, email, password: encryptedPw }
-
+            const newAdmin = { 
+                email, password: encryptedPw, fullname, organization, username }
             Admin.create(newAdmin)
                 .then(admin => {
                     const token = jwt.sign(
                         { userId: admin.id, email: admin.email },
-                        JWT_KEY_SECRET, 
-                    )
-                        return res.cookie('access_token', token).redirect('/admin/login')
-                        
+                        JWT_KEY_SECRET)
+                        return res.cookie('access_token', token).redirect('/admin/login')  
                 })
-        })
-
+    })
 }
 
 
 
 // LOGIN - GET
 const sendLoginForm = (req, res, next) => {
-
-    let isLoggedIn = false
-
+    let accessGranted = false
     if(req.cookies.access_token) {
-        isLoggedIn = true
+        accessGranted = true
     } 
-    
-    res.render('admin/login.ejs', {isLoggedIn})
-
+    res.render('admin/login.ejs', {accessGranted})
 }
 
 // LOGIN - POST 
@@ -83,7 +68,6 @@ const adminLogin = (req, res) => {
     req.body.email.toLowerCase();
     Admin.findOne({ email: req.body.email })
         .then((admin) => {
-            console.log(admin)
             if (!admin){
                 return res.send('email not found')
             }
@@ -94,9 +78,7 @@ const adminLogin = (req, res) => {
                     }
                     const token = jwt.sign(
                         { userId: admin.id, email: admin.email },
-                        JWT_KEY_SECRET,
-                    )
-                    console.log(token)
+                        JWT_KEY_SECRET)
                     return res.cookie('accesstoken', token)
                         .redirect("/admin/home")
                 })
@@ -127,17 +109,19 @@ const adminHome = async (req, res) => {
 
 
 
-// CREATE
+// CREATE NEW USER
 
 const createUser = async (req, res) => {
     const newUser = await User.create(req.body)
     bcrypt.hash(newUser.PIN, 5)
         .then(encryptedPIN => {
-            console.log(`Finished encrypting password: ${encryptedPIN}`)
             const userParams = { 
-                username: newUser.username, fullname: newUser.fullname, 
+                username: newUser.username, 
+                fullname: newUser.fullname, 
                 PIN: encryptedPIN, 
-                startDate: newUser.startDate, position: newUser.position, hourlyPay: newUser.hourlyPay
+                startDate: newUser.startDate, 
+                position: newUser.position, 
+                hourlyPay: newUser.hourlyPay
             }
             Admin.create(userParams)
                 .then(admin => {
@@ -153,22 +137,14 @@ const createUser = async (req, res) => {
 
 
 const createKlokAdmin = async (req, res) => {
-    const newKlok = await Klok.create({
-        user: req.params._id,
-        projectID: req.body.projectID,
-        date: req.body.date,
-        description: req.body.description,
-        hours: req.body.hours
-    })
-    console.log(newKlok)
-    res.redirect("/user/:id")
+    const newKlok = await Klok.create(req.body)
+    res.redirect("/admin/home", { newKlok })
 }
 
 
 const createProject = async (req, res) => {
     const newProj = await Project.create(req.body)
-    console.log(newProj);
-    res.redirect("/admin/home/")
+    res.redirect("/admin/home/", { newProj })
 }
 
 
@@ -209,7 +185,6 @@ const findAllProjects = async (req, res) => {
 
 const  updateUserForm = async (req, res) => {
     const user = await User.findOne(req.params._id);
-    console.log(user)
     res.render("admin/edituser", { user })
 }
 
@@ -225,7 +200,6 @@ const updateUser = async (req, res) => {
 
 const  updateProjectForm = async (req, res) => {
     const project = await Project.findOne(req.params._id);
-    console.log(project)
     res.render("admin/editproject", { project })
 }
 
@@ -239,20 +213,33 @@ const updateProject = async (req, res) => {
         res.redirect("/admin/update-user/:id")
 }
 
+const  updateKlokForm = async (req, res) => {
+    const klok = await Klok.findOne(req.params._id);
+    res.render("admin/editklok", { klok })
+}
+
+const updateKlok = async (req, res) => {
+    const klok = await Klok.findOneAndUpdate(
+        {_id: req.params.id},
+        {$set: req.body},
+        { new: true }
+        )
+        console.log(klok);
+        res.redirect("/admin/home")
+}
+
 // // DELETE
 
 const deleteUser = async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.params._id);
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
         if (deleteUser) {
-            console.log("Deleted User:", deletedUser);
+            console.log("Deleted Project:", deleteUser);
             res.redirect("/admin/home");
         } else {
-            console.log("User not found.");
             res.status(404).send("User not found.");
         }
     } catch (error) {
-        console.error("Error deleting User:", error);
         res.status(500).send("Internal Server Error");
     }
 }
@@ -262,13 +249,25 @@ const deleteProject = async (req, res) => {
         const deletedProj = await Project.findByIdAndDelete(req.params.id);
         if (deleteProject) {
             console.log("Deleted Project:", deletedProj);
-            res.redirect("/admin/modify-project");
+            res.redirect("/admin/home");
         } else {
-            console.log("Project not found.");
             res.status(404).send("Project not found.");
         }
     } catch (error) {
-        console.error("Error deleting Project:", error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+const deleteKlok = async (req, res) => {
+    try {
+        const deletedKlok = await Klok.findByIdAndDelete(req.params.id);
+        if (deleteKlok) {
+            console.log("Deleted Klok:", deletedKlok);
+            res.redirect("/admin/home");
+        } else {
+            res.status(404).send("Klok not found.");
+        }
+    } catch (error) {
         res.status(500).send("Internal Server Error");
     }
 }
@@ -291,6 +290,8 @@ module.exports = {
     sendNewAdminForm,
     createNewAdmin,
     adminHome,
-    updateProjectForm
+    updateProjectForm,
+    updateKlok,
+    updateKlokForm,
+    deleteKlok
 }
-

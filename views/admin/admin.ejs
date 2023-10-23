@@ -90,13 +90,40 @@
 </div>
 
 <div class="maincontainer admin">
+    <div class="newKlok">
+        <h2>ADD KLOK</h2>
+        <form class="createKlok" method="POST" action="/admin/new-klok">
+            <fieldset>
+                <label for="user">User:</label>
+                <input id="user" type="text" name="user"/>
+            </fieldset>
+            <fieldset>
+                <label for="projectID">Project:</label>
+                <input id="projectID" type="text" name="projectID"/>
+            </fieldset>
+            <fieldset>
+                <label for="date">Date:</label>
+                <input id="date" type="text" name="date"/>
+            </fieldset>
+            <fieldset>
+                <label for="description">Description:</label>
+                <input id="description" type="text" name="description"/>
+            </fieldset>
+            <fieldset>
+                <label for="hours">Hours:</label>
+                <input id="hours" type="number" name="hours"/>
+            </fieldset>
+            <fieldset>
+                <button type="submit">Add Klok</button>
+            </fieldset>
+        </form>
+    </div>
     <div class="allkloks">
         <h2>ALL KLOKS</h2>
         <ul>
             <% kloks.forEach((klok) => { %>
                 <li><%= klok.id %> <button onclick="window.location.href='/admin/edit-klok/<%= klok.id %>'">EDIT</button>
                 <% }) %>
-            <li>
         </ul>
     </div>
 </div>

@@ -1,27 +1,30 @@
 const express = require('express');
 const router = express.Router();
 
-const { checkAuth } = require("../middleware/checkauth")
+// const { checkAuth } = require("../middleware/checkauth")
 
 const { 
+        homePage, 
         createUser, 
         findAllUsers, 
-        createProject, 
-        findAllProjects, 
         updateUser,
         updateUserForm,
-        updateProject,
         deleteUser,
+        createProject, 
+        findAllProjects, 
+        updateProject,
         deleteProject,
-        // createKlokAdmin,
         updateProjectForm,
-        homePage, 
         sendNewAdminForm,      
         sendLoginForm,
         createNewAdmin,
         adminHome,
         adminLogin,
-        adminLogout
+        adminLogout,
+        createKlokAdmin,
+        updateKlokForm,
+        updateKlok,
+        deleteKlok
     } = require("../controllers/adminController")
 
 
@@ -59,6 +62,8 @@ router.post("/admin/new-user", createUser)
 
 router.post("/admin/new-project", createProject)
 
+router.post("/admin/new-klok", createKlokAdmin)
+
 
 // // READ
 router.get("/admin/find-user/all", findAllUsers)
@@ -66,22 +71,27 @@ router.get("/admin/find-user/all", findAllUsers)
 router.get("/admin/find-projects/all", findAllProjects)
 
 
-// UPDATE
+// READ, UPDATE & DELETE USER
 router.get("/admin/edit-user/:id", updateUserForm)
 
 router.put("/admin/edit-user/:id", updateUser)
 
+router.delete("/admin/edit-user/:id/delete", deleteUser)
+
+
+// READ, UPDATE & DELETE PROJECT
 router.get("/admin/edit-project/:id", updateProjectForm)
 
 router.put("/admin/edit-project/:id", updateProject)
 
+router.delete("/admin/edit-project/:id/delete", deleteProject)
 
+// READ, UPDATE & DELETE KLOK
+router.get("/admin/edit-klok/:id", updateKlokForm)
 
-// // DELETE
-router.delete("/admin/delete-user/", deleteUser)
+router.put("/admin/edit-klok/:id", updateKlok)
 
-router.delete("/admin/delete-project/", deleteProject)
-
+router.delete("/admin/edit-klok/:id/delete", deleteKlok)
 
 
 
@@ -93,9 +103,9 @@ router.post("/user/login", userLogin)
 
 router.get("/user/logout", userLogout);
 
-router.get("/user/home/", userHome)
+router.get("/user/home/:id", userHome)
 
-router.post("/user/klok", createKlok)
+router.post("/user/home/:id/klok", createKlok)
 
 
 
