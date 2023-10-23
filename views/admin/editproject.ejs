@@ -1,7 +1,7 @@
 <div class="maincontainer admin">
     <div class="newProject">
         <h2>EDIT PROJECT</h2>
-        <form class="createProject" method="POST" action="/admin/new-project">
+        <form class="createProject" method="POST" action="/admin/edit-project/<%= project.id %>/?_method=PUT">
             <fieldset>
                 <label for="name">Name:</label>
                 <input id="name" type="text" name="name"/>
@@ -31,7 +31,7 @@
     <div>
         <h2>DELETE PROJECT</h2>
         <h5>WARNING: NO GOING BACK FROM HERE</h5>
-        <form class="deleteUser" method="POST" action="/admin/delete-user/?_method=DELETE">
+        <form class="deleteUser" method="POST" action="/admin/edit-project/<%= project.id %>/delete?_method=DELETE">
             <fieldset>
                 <button type="submit">Delete Project</button>
             </fieldset>

@@ -10,7 +10,7 @@
       <h1> <%= user.username %></h1>
     <% } %>
     <h3> KLOK YOUR HOURS </h3>
-    <form class="createKlok" method="POST" action="/user/klok/">
+    <form class="createKlok" method="POST" action="/user/home/<%= user._id %>/klok">
       <fieldset>
         <label for="projectID">Project ID:</label>
         <input id="projectID" type="text" name="projectID"/>
@@ -34,7 +34,12 @@
   <div class="recentKloks">
     <h2> RECENT KLOKS </h2>
     <ul>
-  
+      <% user.kloks.forEach((klok) => { %>
+        <li>
+        <p><%= klok._id %> </p>
+        <p><%= klok.description %></p>
+        </li>
+        <% }) %>
     </ul>
   </div>
 </div>
