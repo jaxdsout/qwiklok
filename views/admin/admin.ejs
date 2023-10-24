@@ -1,114 +1,120 @@
 
-<div class="logout">
-    <button onclick="window.location.href='/admin/logout'">Logout</button>
-</div>
-
-<br>
-
-<div class="maincontainer admin">
-    <div class="newUser">
-        <h2>ADD NEW USER</h2>
-        <form class="createUser" method="POST" action="/user/admin/new-user">
-            <label for="username">Username:</label>
-                <input id="username" type="text" name="username"/>
-            <br>
-            <label for="fullmame">Full Name:</label>
-                <input id="fullname" type="text" name="fullname"/>
-            <br>
-            <label for="PIN">PIN:</label>
-                <input id="PIN" type="number" name="PIN"/>
-            <br>
-            <label for="startDate">Start Date:</label>
-                <input id="startDate" type="text" name="startDate"/>
-            <br>
-            <label for="position">Position:</label>
-                <input id="position" type="text" name="position"/>
-            <br>
-            <label for="hourlyPay">Pay Rate:</label>
-                <input id="hourlyPay" type="number" name="hourlyPay"/>
-            <button type="submit">Add Employee</button>
-        </form>
+<div class="page-content">
+    <img src="https://i.ibb.co/w43TQjw/Admin-header.png" alt="header image">
+    <p>Welcome to your dashboard!</p>
+    
+    <div class="logout">
+        <button onclick="window.location.href='/admin/logout'">Logout</button>
     </div>
-    <div class="allusers">
-        <h2>ALL USERS</h2>
-        <ul>
 
-            <li>
+    <br>
+
+    <div class="tabbed">
+        <input type="radio" id="tab1" name="css-tabs" checked>
+        <input type="radio" id="tab2" name="css-tabs" checked>
+        <input type="radio" id="tab3" name="css-tabs" checked>
+        <input type="radio" id="tab4" name="css-tabs" checked>
+        <input type="radio" id="tab5" name="css-tabs" checked>
+        <input type="radio" id="tab6" name="css-tabs" checked>
+
+        <ul class="tabs">
+        <input type="radio" id="tab1" name="css-tabs" checked>
+            <li class="tab"><label for="tab1">All Employees</label></li>
+            <li class="tab"><label for="tab2">Add Employee</label></li>
+            <li class="tab"><label for="tab3">Edit Employees</label></li>
+            <li class="tab"><label for="tab4">All Projects</label></li>
+            <li class="tab"><label for="tab5">Add Project</label></li>
         </ul>
+
+        <div class="tab-content">
+            <h4>All Employees</h4>
+            <p>A table of employees will be displayed here.</p>
+
+        </div>
+
+        <div class="tab-content">
+            <h4>Add Employee</h4>
+            
+            <form class="createUser" method="POST" action="/user/admin/new-user">
+                <label for="username">Username:</label>
+                    <input id="username" type="text" name="username"/>
+                <br>
+                <label for="fullmame">Full Name:</label>
+                    <input id="fullname" type="text" name="fullname"/>
+                <br>
+                <label for="PIN">PIN:</label>
+                    <input id="PIN" type="number" name="PIN"/>
+                <br>
+                <label for="startDate">Start Date:</label>
+                    <input id="startDate" type="text" name="startDate"/>
+                <br>
+                <label for="position">Position:</label>
+                    <input id="position" type="text" name="position"/>
+                <br>
+                <label for="hourlyPay">Pay Rate:</label>
+                    <input id="hourlyPay" type="number" name="hourlyPay"/>
+                <button type="submit">Add Employee</button>
+            </form>    
+        
+        </div>
+
+        <div class="tab-content">
+            <h4>Edit Employees</h4>
+            <form class="createUser" method="POST" action="/admin/modify-user/updated?_method=PUT">
+                <label for="username">Username:</label>
+                    <input id="username" type="text" name="username"/>
+                <br>
+                <label for="fullmame">Full Name:</label>
+                    <input id="fullname" type="text" name="fullname"/>
+                <br>
+                <label for="PIN">PIN:</label>
+                    <input id="PIN" type="number" name="PIN"/>
+                <br>
+                <label for="startDate">Start Date:</label>
+                    <input id="startDate" type="text" name="startDate"/>
+                <br>
+                <label for="position">Position:</label>
+                    <input id="position" type="text" name="position"/>
+                <br>
+                <label for="hourlyPay">Pay Rate:</label>
+                    <input id="hourlyPay" type="number" name="hourlyPay"/>
+                <button type="submit">Edit Employee</button>
+            </form>
+
+
+            <h4>DELETE Employee</h4>
+            <h5>WARNING: NO GOING BACK FROM HERE</h5>
+            <form class="deleteUser" method="POST" action="/admin/modify-user/deleted?_method=DELETE">
+                <button type="submit">Delete Employee</button>
+            </form>
+        </div>
+
+        <div class="tab-content">
+            <h4>All Projects</h4>
+            <p>All projects will be displayed here</p>
+        </div>
+
+        <div class="tab-content">
+            <h4>Add New Project</h4>
+            <form class="createProject" method="POST" action="/user/admin/new-project">
+                <label for="name">Name:</label>
+                    <input id="name" type="text" name="name"/>
+                <br>
+                <label for="location">Location:</label>
+                    <input id="location" type="text" name="location"/>
+                <br>
+                <label for="startDate">Start Date:</label>
+                    <input id="startDate" type="date" name="startDate"/>
+                <br>
+                <label for="active">Active:</label>
+                    <input id="active" type="checkbox" name="active"/>
+                <br>
+                <label for="projectType">Project Type:</label>
+                    <input id="projectType" type="text" name="projectType"/>
+                <button type="submit">Add Project</button>
+            </form>
+        </div>
+
+
     </div>
 </div>
-
-
-<div class="maincontainer admin">
-    <div class="newProject">
-        <h2>ADD PROJECT</h2>
-        <form class="createProject" method="POST" action="/user/admin/new-project">
-            <label for="name">Name:</label>
-                <input id="name" type="text" name="name"/>
-            <br>
-            <label for="location">Location:</label>
-                <input id="location" type="text" name="location"/>
-            <br>
-            <label for="startDate">Start Date:</label>
-                <input id="startDate" type="date" name="startDate"/>
-            <br>
-            <label for="active">Active:</label>
-                <input id="active" type="checkbox" name="active"/>
-            <br>
-            <label for="projectType">Project Type:</label>
-                <input id="projectType" type="text" name="projectType"/>
-            <button type="submit">Add Project</button>
-        </form>
-    </div>
-    <div class="allprojects">
-        <h2>ALL PROJECTS</h2>
-        <ul>
-      
-            <li>
-        </ul>
-    </div>
-</div>
-
-<div class="maincontainer admin">
-    <div class="allkloks">
-        <h2>ALL KLOKS</h2>
-        <ul>
-       
-            <li>
-        </ul>
-    </div>
-</div>
-
-
-<div class="maincontainer admin">
-    <div class="editUser">
-        <h2>EDIT EXISTING USER</h2>
-        <form class="createUser" method="POST" action="/admin/modify-user/updated?_method=PUT">
-            <label for="username">Username:</label>
-                <input id="username" type="text" name="username"/>
-            <br>
-            <label for="fullmame">Full Name:</label>
-                <input id="fullname" type="text" name="fullname"/>
-            <br>
-            <label for="PIN">PIN:</label>
-                <input id="PIN" type="number" name="PIN"/>
-            <br>
-            <label for="startDate">Start Date:</label>
-                <input id="startDate" type="text" name="startDate"/>
-            <br>
-            <label for="position">Position:</label>
-                <input id="position" type="text" name="position"/>
-            <br>
-            <label for="hourlyPay">Pay Rate:</label>
-                <input id="hourlyPay" type="number" name="hourlyPay"/>
-            <button type="submit">Edit Employee</button>
-        </form>
-    </div>
-    <div>
-        <h2>DELETE USER</h2>
-        <h5>WARNING: NO GOING BACK FROM HERE</h5>
-        <form class="deleteUser" method="POST" action="/admin/modify-user/deleted?_method=DELETE">
-            <button type="submit">Delete Employee</button>
-        </form>
-
-    </div>
