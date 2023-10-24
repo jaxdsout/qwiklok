@@ -1,11 +1,16 @@
-const mongoose = require("../db/connection");
+const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
     username: String,
+    fullname: String,
+    PIN: Number,
     startDate: String,
-    admin: Boolean,
     position: String,
-    hourlyPay: Number
+    hourlyPay: Number,
+    kloks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Klok'
+    }]
 })
 
 const User = mongoose.model("User", UserSchema)

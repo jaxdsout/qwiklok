@@ -1,0 +1,33 @@
+
+
+<h1> USER PAGE </h1>
+<div class="maincontainer klok">
+  <div class="newKlok">
+    <% if (user) { %>
+      <h1> <%= user %></h1>
+    <% } %>
+    <h3> KLOK YOUR HOURS </h3>
+    <form class="createKlok" method="POST" action="/user/klok/">
+      <label for="projectID">Project ID:</label>
+          <input id="projectID" type="text" name="projectID"/>
+        <br>
+        <label for="date">Date:</label>
+              <input id="date" type="date" name="date"/>
+          <br>
+          <label for="description">Description:</label>
+          <input id="description" type="text" name="description"/>
+        <br>
+        <label for="hours">Hours:</label>
+          <input id="hours" type="number" name="hours"/>
+        <br>
+        <button type="submit">Log Time</button>
+    </form>
+  </div>
+  <div class="recentKloks">
+    <h2> RECENT KLOKS </h2>
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+</div>
+
