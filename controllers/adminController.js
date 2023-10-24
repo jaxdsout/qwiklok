@@ -9,6 +9,12 @@ const jwt = require('jsonwebtoken')
 
 const { JWT_KEY_SECRET } = require("../config")
 
+
+const homePage = (req, res) => {
+    res.render("home")
+
+}
+
 // NEW - SEND FORM
 const sendNewAdminForm = (req, res, next) => {
     let accessGranted = false
@@ -95,36 +101,41 @@ const adminLogout = (req, res, next) => {
 
 // ADMIN HOME PAGE
 const adminHome = async (req, res) => {
-    // let accessGranted = false
-    // if(req.cookies.access_token) {
-    //     accessGranted = true
-        const kloks = await Klok.find();
+    let accessGranted = false
+    if(req.cookies.access_token) {
+        accessGranted = true
+    } 
+    const kloks = await Klok.find();
     const users = await User.find();
     const projects = await Project.find();
-    res.render("admin/admin.ejs", { users, projects, kloks})
-    } 
-// }
+    res.render("admin/admin.ejs", { users, projects, kloks, accessGranted})
+}
 
 
 
 // CREATE NEW USER
 
 const createUser = async (req, res) => {
-    const newUser = await User.create(req.body)
-    bcrypt.hash(newUser.PIN, 5)
+    const requiredFields = ['username', 'fullname', 'PIN', 'startDate', 'position', 'hourlyPay'];
+    for(let i=0; i < requiredFields.length; i++) {
+        const field = requiredFields[i]
+        if(!(field in req.body)) {
+            const errorMessage = `missing ${field} in request body`;
+            return res.send(errorMessage);
+    }}
+    req.body.username = req.body.username.toLowerCase()
+    const { username, fullname, PIN, startDate, position, hourlyPay } = req.body
+    bcrypt.hash(PIN, 12)
         .then(encryptedPIN => {
             const userParams = { 
-                username: newUser.username, 
-                fullname: newUser.fullname, 
+                username, fullname,
                 PIN: encryptedPIN, 
-                startDate: newUser.startDate, 
-                position: newUser.position, 
-                hourlyPay: newUser.hourlyPay
+                startDate, position, hourlyPay
             }
-            Admin.create(userParams)
-                .then(admin => {
+            User.create(userParams)
+                .then(user => {
                     const token = jwt.sign(
-                        { userId: admin.id, email: admin.email },
+                        { userId: user.id, PIN: user.PIN },
                         JWT_KEY_SECRET, 
                     )
                     return res.cookie('access_token', token).redirect('/admin/home')
@@ -135,15 +146,7 @@ const createUser = async (req, res) => {
 
 
 const createKlokAdmin = async (req, res) => {
-    const newKlok = await Klok.create({
-        name: req.body.name,
-        location: req.body.location,
-        projectID: req.body.projectID,
-        startDate: req.body.startDate,
-        active: req.body.active,
-        projectType: req.body.projectType
-    }
-        )
+    const newKlok = await Klok.create(req.body)
     res.redirect("/admin/home", { newKlok })
 }
 
@@ -291,6 +294,7 @@ module.exports = {
     deleteProject,
     adminLogin,
     adminLogout,
+    homePage,
     sendLoginForm,
     sendNewAdminForm,
     createNewAdmin,

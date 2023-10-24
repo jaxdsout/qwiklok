@@ -1,4 +1,6 @@
-<div class="maincontainer admin">
+<%- include('../partials/admin.ejs') %>
+<div class="maincontainer" id="users">
+<h1> USERS </h1>
     <div class="newUser">
         <h2>ADD NEW USER</h2>
         <form class="createUser" method="POST" action="/admin/new-user">
@@ -44,7 +46,8 @@
 </div>
 
 
-<div class="maincontainer admin">
+<div class="maincontainer" id="projects">
+<h1> PROJECTS </h1>
     <div class="newProject">
         <h2>ADD PROJECT</h2>
         <form class="createProject" method="POST" action="/admin/new-project">
@@ -87,7 +90,8 @@
     </div>
 </div>
 
-<div class="maincontainer admin">
+<div class="maincontainer" id="kloks">
+<h1> KLOKS </h1>
     <div class="newKlok">
         <h2>ADD KLOK</h2>
         <form class="createKlok" method="POST" action="/admin/new-klok">
