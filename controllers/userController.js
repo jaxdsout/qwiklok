@@ -11,8 +11,6 @@ const { JWT_KEY_SECRET } = require("../config");
 // const { urlencoded } = require('body-parser');
 
 
-
-
 // LOGIN - GET
 const sendPINForm = (req, res, next) => {
     let accessGranted = false
@@ -25,15 +23,19 @@ const sendPINForm = (req, res, next) => {
 
 // LOGIN - POST 
 const userLogin = (req, res) => {
-    User.findOne({ PIN: req.body.PIN })
+    req.body.username.toLowerCase();
+    User.findOne({ username: req.body.username })
         .then((user) => {
             if (!user){
                 return res.send('PIN not found')
             }
             bcrypt.compare(req.body.PIN, user.PIN)
-                .then(() => {
+                .then((matched) => {
+                  if (matched === false) {
+                    return res.send('invalid PIN, try again')
+                    }
                     const token = jwt.sign(
-                        { user, PIN: user.PIN },
+                        { userId: user.id, PIN: user.PIN },
                         JWT_KEY_SECRET)
                     console.log("logging in now", user.fullname)
                     return res.cookie('accesstoken', token)
@@ -62,17 +64,6 @@ const userHome = async (req, res) => {
 }
 
 // CREATE
-
-// const createKlok = async (req, res) => {
-//     const newKlok = await Klok.create({
-//         user: req.params.id,
-//         projectID: req.body.projectID,
-//         date: req.body.date,
-//         description: req.body.description,
-//         hours: req.body.hours
-//     })
-//     res.redirect(`/user/login`)
-// }
 
 const createKlok = async (req, res) => {
     try {

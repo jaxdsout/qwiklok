@@ -1,14 +1,22 @@
 body {
     display: flex;
+    flex: auto;
+    flex-wrap: wrap;
     flex-direction: column;
-    align-items: center;
     background: rgb(211, 211, 211);
     font-family: 'Roboto', sans-serif;
+    width: 50%;
+}
+
+.maincontainer {
+  background-color: #FFFFFF;
+  border: 10px black solid;
+  padding: 14px 15px;
 }
 
 
 .topnav {
-    background-color: #333;
+    background-color: #000000;
     overflow: hidden;
   }
   
@@ -22,15 +30,27 @@ body {
     font-size: 17px;
   }
   
-  /* Change the color of links on hover */
   .topnav a:hover {
-    background-color: #ddd;
+    background-color: rgb(211, 211, 211);
     color: black;
   }
-  
-  /* Add a color to the active/current link */
-  .topnav a:active {
-    background-color: #04AA6D;
-    color: white;
-  }
 
+  .adminnav {
+    background-color: #000000;
+    overflow: hidden;
+  }
+  
+  .adminnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  
+  /* Change the color of links on hover */
+  .adminnav a:hover {
+    background-color: rgb(211, 211, 211);
+    color: black;
+  }
