@@ -1,26 +1,30 @@
 <div class="maincontainer admin">
+    <div class="backHome">
+        <button onclick="window.location.href='/admin/home'">BACK</button>
+    </div>
     <div class="newProject">
         <h2>EDIT PROJECT</h2>
         <form class="createProject" method="POST" action="/admin/edit-klok/<%= klok.id %>/?_method=PUT">
             <fieldset>
                 <label for="user">User:</label>
-                <input id="user" type="text" name="user"/>
+                <input id="user" type="text" name="user" placeholder="<%= klok.user %>"/>
+            </fieldset>
             </fieldset>
             <fieldset>
                 <label for="projectID">Project:</label>
-                <input id="projectID" type="text" name="projectID"/>
+                <input id="projectID" type="text" name="projectID" placeholder="<%= klok.projectID %>"/>
             </fieldset>
             <fieldset>
                 <label for="date">Date:</label>
-                <input id="date" type="text" name="date"/>
+                <input id="date" type="text" name="date" placeholder="<%= klok.date %>"/>
             </fieldset>
             <fieldset>
                 <label for="description">Description:</label>
-                <input id="description" type="text" name="description"/>
+                <input id="description" type="text" name="description" placeholder="<%= klok.description %>"/>
             </fieldset>
             <fieldset>
                 <label for="hours">Hours:</label>
-                <input id="hours" type="number" name="hours"/>
+                <input id="hours" type="number" name="hours" placeholder="<%= klok.hours %>"/>
             </fieldset>
             <fieldset>
                 <button type="submit">Edit Klok</button>

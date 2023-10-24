@@ -1,33 +1,36 @@
 <div class="maincontainer admin">
+    <div class="backHome">
+        <button onclick="window.location.href='/admin/home'">BACK</button>
+    </div>
     <div class="editUser">
         <h2>EDIT EXISTING USER</h2>
         <form class="createUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
             <fieldset>
                 <label for="username">Username:</label>
-                <input id="username" type="text" name="username"/>
+                <input id="username" type="text" name="username" placeholder="<%= user.username %>"/>
             </fieldset>
             <fieldset>
                 <label for="fullmame">Full Name:</label>
-                <input id="fullname" type="text" name="fullname"/>
+                <input id="fullname" type="text" name="fullname" placeholder="<%= user.fullname %>"/>
             </fieldset>
             <fieldset>
                 <label for="PIN">PIN:</label>
-                <input id="PIN" type="number" name="PIN"/>
+                <input id="PIN" type="number" name="PIN" placeholder="<%= user.PIN %>"/>
             </fieldset>
             <fieldset>
                 <label for="startDate">Start Date:</label>
-                <input id="startDate" type="text" name="startDate"/>
+                <input id="startDate" type="text" name="startDate" placeholder="<%= user.startDate %>"/>
             </fieldset>
             <fieldset>
                 <label for="position">Position:</label>
-                <input id="position" type="text" name="position"/>
+                <input id="position" type="text" name="position" placeholder="<%= user.position %>"/>
             </fieldset>
             <fieldset>
                 <label for="hourlyPay">Pay Rate:</label>
-                <input id="hourlyPay" type="number" name="hourlyPay"/>
+                <input id="hourlyPay" type="number" name="hourlyPay" placeholder="<%= user.hourlyPay %>"/>
             </fieldset>
             <fieldset>
-                <button type="submit">Edit Employee</button>
+                <button type="submit">Edit User</button>
             </fieldset>    
         </form>
     </div>
@@ -37,7 +40,7 @@
         <h5>WARNING: NO GOING BACK FROM HERE</h5>
         <form class="deleteUser" method="POST" action="/admin/edit-user/<%= user.id %>/delete?_method=DELETE">
             <fieldset>
-                <button type="submit">Delete Employee</button>
+                <button type="submit">Delete User</button>
             </fieldset>
         </form>
     </div>
