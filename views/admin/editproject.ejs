@@ -1,26 +1,33 @@
 <div class="maincontainer admin">
+        <div class="backHome">
+            <button onclick="window.location.href='/admin/home'">BACK</button>
+        </div>
     <div class="newProject">
         <h2>EDIT PROJECT</h2>
         <form class="createProject" method="POST" action="/admin/edit-project/<%= project.id %>/?_method=PUT">
             <fieldset>
                 <label for="name">Name:</label>
-                <input id="name" type="text" name="name"/>
+                <input id="name" type="text" name="name" placeholder="<%= project.name %>"/>
             </fieldset>
             <fieldset>
                 <label for="location">Location:</label>
-                <input id="location" type="text" name="location"/>
+                <input id="location" type="text" name="location" placeholder="<%= project.location %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="projectID">Project ID:</label>
+                <input id="projectID" type="text" name="projectID" placeholder="<%= project.projectID %>"/>
             </fieldset>
             <fieldset>
                 <label for="startDate">Start Date:</label>
-                <input id="startDate" type="date" name="startDate"/>
+                <input id="startDate" type="date" name="startDate" placeholder="<%= project.startDate %>"/>
             </fieldset>
             <fieldset>
                 <label for="active">Active:</label>
-                <input id="active" type="checkbox" name="active"/>
+                <input id="active" type="checkbox" name="active" placeholder="<%= project.active %>"/>
             </fieldset>
             <fieldset>
                 <label for="projectType">Project Type:</label>
-                <input id="projectType" type="text" name="projectType"/>
+                <input id="projectType" type="text" name="projectType" placeholder="<%= project.projectType %>"/>
             </fieldset>
             <fieldset>
                 <button type="submit">Edit Project</button>

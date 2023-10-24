@@ -4,7 +4,6 @@ const router = express.Router();
 // const { checkAuth } = require("../middleware/checkauth")
 
 const { 
-        homePage, 
         createUser, 
         findAllUsers, 
         updateUser,
@@ -36,7 +35,7 @@ const {
     createKlok
 } = require("../controllers/userController")
 
-router.get("/", homePage)
+router.get("/", sendPINForm)
 
 
 // ADMIN

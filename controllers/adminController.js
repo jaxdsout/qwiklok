@@ -9,12 +9,6 @@ const jwt = require('jsonwebtoken')
 
 const { JWT_KEY_SECRET } = require("../config")
 
-
-const homePage = (req, res) => {
-    res.render("home")
-
-}
-
 // NEW - SEND FORM
 const sendNewAdminForm = (req, res, next) => {
     let accessGranted = false
@@ -101,11 +95,15 @@ const adminLogout = (req, res, next) => {
 
 // ADMIN HOME PAGE
 const adminHome = async (req, res) => {
-    const kloks = await Klok.find();
+    // let accessGranted = false
+    // if(req.cookies.access_token) {
+    //     accessGranted = true
+        const kloks = await Klok.find();
     const users = await User.find();
     const projects = await Project.find();
     res.render("admin/admin.ejs", { users, projects, kloks})
-}
+    } 
+// }
 
 
 
@@ -137,7 +135,15 @@ const createUser = async (req, res) => {
 
 
 const createKlokAdmin = async (req, res) => {
-    const newKlok = await Klok.create(req.body)
+    const newKlok = await Klok.create({
+        name: req.body.name,
+        location: req.body.location,
+        projectID: req.body.projectID,
+        startDate: req.body.startDate,
+        active: req.body.active,
+        projectType: req.body.projectType
+    }
+        )
     res.redirect("/admin/home", { newKlok })
 }
 
@@ -285,7 +291,6 @@ module.exports = {
     deleteProject,
     adminLogin,
     adminLogout,
-    homePage,
     sendLoginForm,
     sendNewAdminForm,
     createNewAdmin,

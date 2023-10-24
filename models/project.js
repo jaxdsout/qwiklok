@@ -5,7 +5,7 @@ const ProjSchema = new mongoose.Schema({
     location: String,
     projectID: String,
     startDate: String,
-    active: Boolean,
+    active: String,
     projectType: String,
     workers: [{
         type: mongoose.Schema.Types.ObjectId,

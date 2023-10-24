@@ -1,6 +1,5 @@
-
-<h2> ADMIN LOGIN </h2>
 <div class="adminlogin">
+    <h3>ADMIN LOGIN</h3>
     <form class="login" method="POST" action="/admin/login">
         <fieldset>
             <label for="email" >EMAIL:</label>
@@ -11,10 +10,8 @@
             <input id="password" type="password" name="password">
         </fieldset>
         <fieldset>
-            <input type="submit" value="SUBMIT"> or <a href="/admin/new">Sign Up</a>
+            <input type="submit" value="SUBMIT">
         </fieldset>       
     </form>
-    <fieldset>
-        <button onclick="window.location.href='/'">HOME</button>
-    </fieldset> 
+    <button onclick="window.location.href='/admin/new'">SIGN UP</button>
 </div>
