@@ -1,0 +1,46 @@
+<div class="page-content">
+    <div class="adminnav">
+        <a href="/user/logout">USER LOGOUT</a>
+    </div>
+    <div class="maincontainer klok">
+        <div class="newKlok">
+        <% if (user) { %>
+            <h1> Hi <%= user.username %>!</h1>
+        <% } %>
+            <form class="createKlok" method="POST" action="/user/home/<%= user._id %>/klok">
+            <fieldset>
+                <legend>KLOK YOUR HOURS</legend>
+            <div>
+                <label for="projectID">Project ID:</label>
+                <input id="projectID" type="text" name="projectID"/>
+            </div>
+            <div>
+                <label for="date">Date:</label>
+                <input id="date" type="date" name="date"/>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <input id="description" type="text" name="description"/>
+            </div>
+            <div>
+                <label for="hours">Hours:</label>
+                <input id="hours" type="number" name="hours"/>
+            </div>
+            <div>
+                <button type="submit">Log Time</button>
+            </div>
+            </fieldset>
+        </div>
+        <div class="recentKloks">
+        <h2> RECENT KLOKS </h2>
+        <ul>
+            <% user.kloks.forEach((klok) => { %>
+            <li>
+            <p><%= klok._id %> </p>
+            <p><%= klok.description %></p>
+            </li>
+            <% }) %>
+        </ul>
+        </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+
+<div class="tab-content">
+    <div class="editUser">
+        <h4>EDIT EXISTING USER</h4>
+        <form class="createUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
+            <fieldset>
+                <label for="username">Username:</label>
+                <input id="username" type="text" name="username" placeholder="<%= user.username %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="fullmame">Full Name:</label>
+                <input id="fullname" type="text" name="fullname" placeholder="<%= user.fullname %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="PIN">PIN:</label>
+                <input id="PIN" type="text" name="PIN" placeholder="<%= user.PIN %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="startDate">Start Date:</label>
+                <input id="startDate" type="text" name="startDate" placeholder="<%= user.startDate %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="position">Position:</label>
+                <input id="position" type="text" name="position" placeholder="<%= user.position %>"/>
+            </fieldset>
+            <fieldset>
+                <label for="hourlyPay">Pay Rate:</label>
+                <input id="hourlyPay" type="number" name="hourlyPay" placeholder="<%= user.hourlyPay %>"/>
+            </fieldset>
+            <fieldset>
+                <button type="submit">Edit User</button>
+            </fieldset>    
+        </form>
+    </div>
+
+    <div>
+        <h2>DELETE USER</h2>
+        <h5>WARNING: NO GOING BACK FROM HERE</h5>
+        <form class="deleteUser" method="POST" action="/admin/edit-user/<%= user.id %>/delete?_method=DELETE">
+            <fieldset>
+                <button type="submit">Delete User</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

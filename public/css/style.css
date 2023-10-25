@@ -3,7 +3,7 @@
     font-family: sans-serif;
 }
 body {
-    background-image: linear-gradient(19deg, #ffffff 0%, #dbdbdb 100%);
+    background-image: linear-gradient(19deg, white  0%, #dbdbdb 100%);
 	background-repeat: no-repeat;
 	font: 400 16px/1.5em "Open Sans", sans-serif;
 }
@@ -11,51 +11,20 @@ body {
 h1 {
     font-weight: 500;
 }
-/* container and layout */
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    background: rgb(211, 211, 211, 50%);
-    border: 2px solid black;
-    border-radius: 20%;
-    align-items: center;
-    padding: 20px;
-}
 
-.flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    transition: all 0.3s ease-in-out;
-}
-
-.nav ul {
-    display: flex;
-    list-style-type: none;
-    align-items: center;
-    justify-content: center; 
-}
-
-.nav a {
-    color: black;
-    text-decoration: none;
-    padding: 7px 15px;
-    transition: all 0.3s ease-in-out;
-}
-
-.nav img {
-    width: 40px;
-}
 
 .page-content {
 	max-width: 800px; 
 	margin: 15px auto; 
 	padding: 15px; 
 	background: #fff;
-    box-shadow: #333;
+    box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.5);
 }
+
+.page-content img {
+    width: 770px;
+}
+
 a {
 	color: #21D4FD; 
 	transition: all 0.3s;
@@ -125,3 +94,195 @@ a:hover {
 .tabbed [type="radio"]:nth-of-type(4):checked ~ .tab-content:nth-of-type(4) {
 	display: block;
 }
+
+#add-user {
+    float: right;
+}
+
+
+.keypad {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 210px;
+    margin: 0 auto;
+}
+
+.key {
+    width: 60px;
+    height: 60px; 
+    padding: 0; /* remove padding so width and height can take over */
+    font-size: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid lightgrey;
+    border-radius: 50%; /* make it circular */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex; /* added to center the content */
+    align-items: center; /* vertically center */
+    justify-content: center; /* horizontally center */
+}
+
+.key:hover {
+    background-color: #e0e0e0;
+}
+
+.zero {
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+    grid-column: auto;
+}
+
+.clear, .enter {
+    background-color: lightskyblue;
+}
+
+.clear:hover, .enter:hover {
+    background-color: green;
+}
+
+.key:active {
+    transform: scale(0.95); /* makes the button slightly smaller when clicked */
+    background-color: lightgrey; 
+}
+
+.clear:active, .enter:active {
+    background-color: green;
+}
+
+legend {
+    background-color: black;
+    color: white;
+    padding: 3px 6px;
+}
+
+
+#mainlogo {
+    width: 40px;
+    align-content: center;
+}
+
+nav {
+    margin: auto;
+    margin-top: 10px;
+    position: relative;
+    width: clamp(800px, 50vw ,100%);
+  }
+  
+  nav h5 {
+    font-size: 0.9rem;
+    border-radius: 2px;
+    position: relative;
+    background: #dbdbdb;
+    height: 20px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    color: inherit;
+    font-weight: 200;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.35);
+    transition: all 0.4s;
+  }
+  
+  nav:hover h5 {
+    transform: translateY(-2px);
+    box-shadow: 2px 2px 5px -1px rgba(0, 0, 0, 0.35);
+    transistion: all 0.4s;
+  }
+  
+  #toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    cursor: pointer;
+    height: 40px;
+  }
+  
+  h5::before{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: inherit;
+    aspect-ratio: 1;
+    background: currentColor;
+    display: flex;
+    align-items: center;
+    padding-right: 1rem;
+    content: "";
+    clip-path: polygon(50% 25%, 20% 80%, 80% 80%);
+    transform: rotate(180deg) scale(0.75);
+  }
+  
+  #toggle:not(:checked) ~ h5::before {
+    transform: rotate(0deg) scale(0.75);
+  }
+  
+  #toggle:focus ~ h5{
+    background: white;
+    transition: background 0.45s;
+  }
+  
+  #toggle:checked ~ ul {
+    visibility: hidden;
+    opacity: 0;
+  }
+  
+  #toggle:not(:checked) ~ ul {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  
+  nav img {
+    justify-content: center;
+    width: 40px;
+  }
+
+  nav ul {
+    padding-left: 0;
+    padding-top: 1rem;
+    margin-top: 0;
+    background: #ece5da;
+    list-style: none;
+    overflow: hidden;
+    text-align: right;
+    text-align: center;
+    transition: all 0.4s ease-out;
+    width: 100%;
+    position: absolute;
+  }
+  nav ul li {
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    line-height: 1.5;
+    width: 100%;
+    margin: 0 0 0.25rem 0;
+    background: #dbdbdb;
+    transition: background 3s;
+    box-shadow: 8px 8px 10px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  nav ul li:hover,
+  nav ul li a:focus {
+    background: white;
+    transition: background 0.45s;
+  }
+  
+  nav ul a {
+    display: block;
+    color: inherit;
+    text-transform: lowercase;
+    font-weight: 200;
+    text-decoration: none;
+  }
+  
+  
+ 
