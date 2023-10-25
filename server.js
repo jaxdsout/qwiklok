@@ -1,12 +1,11 @@
 // REQUIREMENTS
+require('dotenv').config();
 const express = require('express');
 const mongoose = require("mongoose")
 const ejsLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override')
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-require('dotenv').config();
-
 const { DATABASE_URL, PORT } = require("./config");
 
 

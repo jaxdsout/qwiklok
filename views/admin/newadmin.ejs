@@ -2,6 +2,10 @@
     <h2>ADMIN & ORGANIZATION SIGNUP</h2>
     <form class="createUser" method="POST" action="/admin/signup/">
         <fieldset>
+            <label for="fullname">Full Name:</label>
+          <input id="fullname" type="text" name="fullname"/>
+        </fieldset>
+        <fieldset>
             <label for="email">Email:</label>
             <input id="email" type="email" name="email"/>
         </fieldset>
@@ -10,16 +14,8 @@
             <input id="password" type="password" name="password"/>
         </fieldset>
         <fieldset>
-            <label for="fullname">Full Name:</label>
-          <input id="fullname" type="text" name="fullname"/>
-        </fieldset>
-        <fieldset>
             <label for="organization">Organization:</label>
           <input id="organization" type="text" name="organization"/>
-        </fieldset>
-        <fieldset>
-            <label for="username">Username:</label>
-            <input id="username" type="text" name="username"/>
         </fieldset>
         <fieldset>
             <input type="submit" value="SUBMIT">

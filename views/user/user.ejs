@@ -31,11 +31,15 @@
   <div class="recentKloks">
     <h2> RECENT KLOKS </h2>
     <ul>
-      <% user.kloks.forEach((klok) => { %>
+      <% kloks.forEach((klok) => { %>
         <li>
-        <p><%= klok._id %> </p>
-        <p><%= klok.description %></p>
+        <p>Description: <%= klok.description %></p>
+        <p>Project: <%= klok.projectID %></p>
+        <p>Hours: <%= klok.hours %></p>
+        <p>Date: <%= klok.date %></p>
+        <p>ID: <%= klok._id %> </p>
         </li>
+        <br>
         <% }) %>
     </ul>
   </div>
