@@ -1,7 +1,4 @@
-const User = require('../models/user');
-const Admin = require('../models/admin');
-const Project = require('../models/project');
-const Klok = require("../models/klok");
+const { User, Admin, Project, Klok } = require('../models/admin');
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -100,8 +97,12 @@ const adminHome = async (req, res) => {
             entryAccess = true
             const admin = await Admin.findOne({ _id: req.params.id })
             const users = await User.find({ admin: req.params.id });
-            console.log(users)
-            res.render("admin/admin.ejs", { admin, users, entryAccess})
+            users.forEach((user) => {
+                 klokkies = user.kloks
+                 console.log(klokkies)
+            })
+            console.log(klokkies)
+            res.render("admin/admin.ejs", { admin, users, klokkies, entryAccess})
         } else {
             res.send("error: no access granted")
         }
@@ -171,7 +172,7 @@ const createProject = async (req, res) => {
     } else {
     res.send("error: no access granted")
     }
-    }
+}
 
 
 

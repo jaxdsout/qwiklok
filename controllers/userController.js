@@ -1,5 +1,4 @@
-const User = require('../models/user');
-const Klok = require("../models/klok");
+const { User, Klok, Project, Admin } = require('../models/admin');
 
 User.Promise = global.Promise
 Klok.Promise = global.Promise
@@ -57,8 +56,10 @@ const userHome = async (req, res) => {
     let entryAccess = true
     if (req.cookies.usertoken) {
         const user = await User.findOne({_id: req.params.id})
-        const kloks = await Klok.find({user: req.params.id})
-        res.render("user/user.ejs", { user, kloks, entryAccess });
+        const kloks = user.kloks
+        const availProj = await Admin.findOne({_id: user.admin._id})
+        const projects = availProj.projects
+        res.render("user/user.ejs", { user, kloks, projects, entryAccess });
     } else {
         res.send("error: no access granted")
     }
@@ -68,21 +69,25 @@ const userHome = async (req, res) => {
 
 const createKlok = async (req, res) => {
     if (req.cookies.usertoken) {
-    const user = await User.findById(req.params.id);
-
-      const newKlok = await Klok.create({
-        user: user._id,
-        projectID: req.body.projectID,
-        date: req.body.date,
-        description: req.body.description,
-        hours: req.body.hours
-      });
-      if (user) {
-        user.kloks.push(newKlok);
-        await user.save();
-        res.redirect(`/user/home/${user._id}`);
-      } 
-      console.log(user.kloks)
+        const requiredFields = ['projectID', 'date', 'hours', 'description'];
+        for (let field of requiredFields) {
+            if(!(field in req.body)) {
+            const errorMessage = `missing ${field} in request body`;
+            return res.send(errorMessage);
+        }}
+        const user = await User.findById(req.params.id);
+        const klok = await Klok.create({
+            user: user._id,
+            projectID: req.body.projectID,
+            date: req.body.date,
+            description: req.body.description,
+            hours: req.body.hours
+        })
+        if (user) {
+            user.kloks.push(klok);
+            await user.save();
+            res.redirect(`/user/home/${user._id}`);
+          } 
     } else {
         res.send("error: no access granted")
     }

@@ -1,14 +1,14 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 
-const ProjSchema = new mongoose.Schema({
-    name: String,
-    location: String,
-    projectID: String,
-    projectStart: String,
-    active: String,
-    projectType: String
-})
+// const ProjSchema = new mongoose.Schema({
+//     name: String,
+//     location: String,
+//     projectID: String,
+//     projectStart: String,
+//     active: String,
+//     projectType: String
+// })
 
-const Project = mongoose.model("Project", ProjSchema)
+// const Project = mongoose.model("Project", ProjSchema)
 
-module.exports = Project
+// module.exports = Project
