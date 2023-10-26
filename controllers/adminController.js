@@ -39,7 +39,7 @@ const createNewAdmin = async (req, res) => {
             JWT_KEY_SECRET,
             { expiresIn: '1hr' }
             );
-        return res.cookie('admintoken', token).redirect('/admin/home')  
+        return res.cookie('admintoken', token).redirect(`/admin/home/${admin.id}`)  
     } catch (error) {
         console.error(error)
     }
@@ -73,7 +73,7 @@ const adminLogin = async (req, res, next) => {
             JWT_KEY_SECRET,
             { expiresIn: '1hr' }
         );
-        return res.cookie('admintoken', token).redirect("/admin/home")
+        return res.cookie('admintoken', token).redirect(`/admin/home/${admin.id}`)
     } catch (error) {
         console.error(error)
     }
@@ -98,10 +98,10 @@ const adminHome = async (req, res) => {
         let entryAccess = false;
         if (req.cookies.admintoken) {
             entryAccess = true
-            const kloks = await Klok.find({});
-            const users = await User.find({});
-            const projects = await Project.find({});
-            res.render("admin/admin.ejs", { users, projects, kloks, entryAccess})
+            const admin = await Admin.findOne({ _id: req.params.id })
+            const users = await User.find({ admin: req.params.id });
+            console.log(users)
+            res.render("admin/admin.ejs", { admin, users, entryAccess})
         } else {
             res.send("error: no access granted")
         }
@@ -112,8 +112,7 @@ const adminHome = async (req, res) => {
 // CREATE NEW USER
 
 const createUser = async (req, res) => {
-    let entryAccess = !req.cookies.admintoken
-    if (!entryAccess) {
+    if (req.cookies.admintoken) {
         const requiredFields = ['username', 'fullname', 'PIN', 'startDate', 'position', 'hourlyPay'];
         for(let field of requiredFields) {
         if(!(field in req.body)) {
@@ -123,13 +122,20 @@ const createUser = async (req, res) => {
         const { username, fullname, PIN, startDate, position, hourlyPay } = req.body
         try {
             const newUser = { username, fullname, PIN, startDate, position, hourlyPay }
-            const user = User.create(newUser)
-            const token = jwt.sign(
-                { userId: user.id, PIN: user.PIN },
-                JWT_KEY_SECRET,
-                { expiresIn: '1hr' }
-                );
-            return res.cookie('admintoken', token).redirect('/admin/home')  
+            const user = await User.create(newUser)
+            const admin = await Admin.findOne({ id: req.params.id })
+            if (admin) {
+                user.admin = admin._id;
+                await user.save();
+                admin.users.push(user);
+                await admin.save();
+                const token = jwt.sign(
+                    { userId: user.id, PIN: user.PIN },
+                    JWT_KEY_SECRET,
+                    { expiresIn: '1hr' }
+                    );
+                return res.cookie('admintoken', token).redirect(`/admin/home/${admin.id}`)  
+            } 
         } catch (error) {
             console.error(error)
         } 
@@ -139,27 +145,35 @@ const createUser = async (req, res) => {
 }
 
 
-
-const createKlokAdmin = async (req, res) => {
-    let entryAccess = !req.cookies.admintoken
-    if (!entryAccess) {
-        const newKlok = await Klok.create(req.body)
-        res.redirect("/admin/home", { newKlok })
-    } else {
-        res.send("error: no access granted")
-    }
-}
-
-
 const createProject = async (req, res) => {
-    let entryAccess = !req.cookies.admintoken
-    if (!entryAccess) {
-    const newProj = await Project.create(req.body)
-    res.redirect("/admin/home/", { newProj })
+    if (req.cookies.admintoken) {
+        const requiredFields = ['name', 'location', 'projectID', 'projectStart', 'active', 'projectType'];
+        for(let field of requiredFields) {
+        if(!(field in req.body)) {
+            const errorMessage = `missing ${field} in request body`;
+            return res.send(errorMessage);
+        }}
+        const { name, location, projectID, projectStart, active, projectType } = req.body
+        try {
+            const newProj = { name, location, projectID, projectStart, active, projectType }
+            const project = await Project.create(newProj)
+            const admin = await Admin.findOne({ id: req.params.id })
+            if (admin) {
+                project.admin = admin._id;
+                await project.save();
+                admin.projects.push(project);
+                await admin.save();
+                return res.redirect(`/admin/home/${admin.id}`)  
+            } 
+        } catch (error) {
+            console.error(error)
+        } 
     } else {
-        res.send("error: no access granted")
+    res.send("error: no access granted")
     }
-}
+    }
+
+
 
 
 
@@ -311,7 +325,6 @@ const deleteKlok = async (req, res) => {
 module.exports = {
     createUser,
     createProject,
-    createKlokAdmin,
     findAllUsers,
     findAllProjects,
     updateUser,

@@ -1,7 +1,0 @@
-{
-    "env": {
-        "DB_USER" : "jaxon",
-        "DB_PASSWORD" : "12345",
-        "JWT_KEY_SECRET" : "time_waits_for_noone"
-    }
-}

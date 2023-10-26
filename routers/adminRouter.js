@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// const { checkAuth } = require("../middleware/checkauth")
+const { checkAuth } = require("../middleware/checkauth")
 
 const { 
         createUser, 
@@ -20,7 +20,6 @@ const {
         adminHome,
         adminLogin,
         adminLogout,
-        createKlokAdmin,
         updateKlokForm,
         updateKlok,
         deleteKlok
@@ -57,7 +56,7 @@ router.post("/admin/login", adminLogin);
 
 router.get("/admin/logout", adminLogout);
 
-router.get("/admin/home", adminHome)
+router.get("/admin/home/:id", adminHome)
 
 router.get("/admin/new", sendNewAdminForm);
 
@@ -104,7 +103,6 @@ router.delete("/admin/edit-project/:id/delete", deleteProject)
 
 // ADMIN CRUD -- KLOK
 
-router.post("/admin/new-klok", createKlokAdmin)
 
 router.get("/admin/edit-klok/:id", updateKlokForm)
 

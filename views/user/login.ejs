@@ -1,13 +1,32 @@
-<div class="userLogin">
-    <h3>USER LOGIN</h3>
-    <form class="login" method="POST" action="/user/login">
-        <fieldset>
-            <label for="PIN" >PIN:</label>
-            <input id="PIN" type="password" name="PIN">
-        </fieldset>
+<div class="page-content">
+    <img src="https://i.ibb.co/LPds7zd/Klok-header.png">
 
-        <fieldset>
+    <h3>USER LOGIN</h3>
+    
+    <div id="split">
+        <form class="login" method="POST" action="/user/login">
+            <fieldset>
+                <label for="PIN" >PIN:</label>
+                <input id="PIN" type="password" name="PIN">
+            </fieldset>
         <input type="submit" value="SUBMIT">
-        </fieldset>
-    </form>
+
+        </form>
+        <br><br>
+        <input type="text" id="inputField">
+        <div class="keypad">
+            <button class="key" data-value="1">1</button>
+            <button class="key" data-value="2">2</button>
+            <button class="key" data-value="3">3</button>
+            <button class="key" data-value="4">4</button>
+            <button class="key" data-value="5">5</button>
+            <button class="key" data-value="6">6</button>
+            <button class="key" data-value="7">7</button>
+            <button class="key" data-value="8">8</button>
+            <button class="key" data-value="9">9</button>
+            <button class="key clear" data-action="clear">C</button>
+            <button class="key zero" data-value="0">0</button>
+            <button class="key enter" data-action="enter">Enter</button>
+        </div>
+    </div>
 </div>

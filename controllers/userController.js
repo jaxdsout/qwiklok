@@ -67,9 +67,7 @@ const userHome = async (req, res) => {
 // CREATE
 
 const createKlok = async (req, res) => {
-    let entryAccess = true
     if (req.cookies.usertoken) {
-    try {
     const user = await User.findById(req.params.id);
 
       const newKlok = await Klok.create({
@@ -85,10 +83,6 @@ const createKlok = async (req, res) => {
         res.redirect(`/user/home/${user._id}`);
       } 
       console.log(user.kloks)
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while creating and updating klok.');
-    }
     } else {
         res.send("error: no access granted")
     }

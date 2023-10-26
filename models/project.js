@@ -4,13 +4,9 @@ const ProjSchema = new mongoose.Schema({
     name: String,
     location: String,
     projectID: String,
-    startDate: String,
+    projectStart: String,
     active: String,
-    projectType: String,
-    workers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }]
+    projectType: String
 })
 
 const Project = mongoose.model("Project", ProjSchema)
