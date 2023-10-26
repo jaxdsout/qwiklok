@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
 const AdminSchema = new mongoose.Schema({
-    username: String,
     email: String,
+    password: String,
     fullname: String,
     organization: String,
-    password: String,
-});
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
+})
 
 const Admin = mongoose.model("Admin", AdminSchema)
 

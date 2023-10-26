@@ -1,4 +1,5 @@
 // REQUIREMENTS
+require('dotenv').config();
 const express = require('express');
 const mongoose = require("mongoose")
 const ejsLayouts = require('express-ejs-layouts');
@@ -22,7 +23,6 @@ app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride("_method"))
 app.use(cookieParser());
-
 
 // ROUTERS
 const adminRouter = require("./routers/adminRouter")
