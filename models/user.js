@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     startDate: String,
     position: String,
     hourlyPay: Number,
+    admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Admin'
+    },
     kloks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Klok'

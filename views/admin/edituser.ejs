@@ -1,9 +1,7 @@
-<div class="maincontainer admin">
-    <div class="backHome">
-        <button onclick="window.location.href='/admin/home'">BACK</button>
-    </div>
+
+<div class="tab-content">
     <div class="editUser">
-        <h2>EDIT EXISTING USER</h2>
+        <h4>EDIT EXISTING USER</h4>
         <form class="createUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
             <fieldset>
                 <label for="username">Username:</label>
