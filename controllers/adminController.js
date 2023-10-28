@@ -17,12 +17,6 @@ const sendNewAdminForm = (req, res, next) => {
 
 // // NEW - POST NEW ADMIN
 const createNewAdmin = async (req, res) => {
-    const requiredFields = ['email', 'password', 'fullname', 'organization'];
-    for(let field of requiredFields) {
-        if(!(field in req.body)) {
-            const errorMessage = `missing ${field} in request body`;
-            return res.send(errorMessage);
-    }}
     req.body.email = req.body.email.toLowerCase()
     const { email, password, fullname, organization } = req.body
     try {
