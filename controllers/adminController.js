@@ -172,16 +172,16 @@ const createUser = async (req, res) => {
 }
 }
 
-const  updateUserForm = async (req, res) => {
-    let entryAccess = !req.cookies.admintoken
-    if (!entryAccess) {
-        const user = await User.findOne({_id: req.params.id});
-        res.render("admin/edituser", { user, entryAccess })
-    } else {
-        res.send("error: no access granted")
-    }
+// const  updateUserForm = async (req, res) => {
+//     let entryAccess = !req.cookies.admintoken
+//     if (!entryAccess) {
+//         const user = await User.findOne({_id: req.params.id});
+//         res.render("admin/edituser", { user, entryAccess })
+//     } else {
+//         res.send("error: no access granted")
+//     }
     
-}
+// }
 
 const updateUser = async (req, res) => {
     let entryAccess = !req.cookies.admintoken
@@ -324,7 +324,6 @@ module.exports = {
     findAllUsers,
     findAllProjects,
     updateUser,
-    updateUserForm,
     updateProject,
     deleteUser,
     deleteProject,
@@ -334,8 +333,6 @@ module.exports = {
     sendNewAdminForm,
     createNewAdmin,
     adminHome,
-    updateProjectForm,
     updateKlok,
-    updateKlokForm,
     deleteKlok
 }
