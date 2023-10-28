@@ -30,7 +30,7 @@ const userLogin = async (req, res) => {
                 const token = jwt.sign(
                     { userId: user.id, PIN: user.PIN },
                     JWT_KEY_SECRET,
-                    { expiresIn: '1hr' }
+                    // { expiresIn: '1hr' }
                 );
                 return res.cookie('usertoken', token).redirect(`/user/home/${user._id}`)
             } else {
@@ -46,12 +46,11 @@ const userLogin = async (req, res) => {
 
 // LOGOUT
 const userLogout = (req, res, next) => {
+    if(!req.cookies.usertoken) {
+        return res.send('Failed to logout')
+    }
     try {
-        const token = req.cookies.usertoken;    
-        if(!token) {
-            return res.send('Failed to logout').redirect("/user/home/${user._id}")
-        }
-        const data = jwt.verify(token, JWT_KEY_SECRET)
+        const data = jwt.verify(req.cookies.usertoken, JWT_KEY_SECRET)
         console.log("Logging out now", data)
         return res.clearCookie('usertoken').redirect('/user/login');
     } catch (error) {
@@ -62,40 +61,37 @@ const userLogout = (req, res, next) => {
 
 // USER HOME PAGE
 const userHome = async (req, res) => {
-    try {
-        if (req.cookies.usertoken) {
-            let entryAccess = true
-            const user = await User.findOne({_id: req.params.id})
-            const kloks = user.kloks
-            const availProj = await Admin.findOne({_id: user.admin._id})
-            const projects = availProj.projects
-            res.render("user/user.ejs", { user, kloks, projects, entryAccess });
+    let entryAccess = false;
+    if (req.cookies.usertoken) {
+        entryAccess = true
+        const user = await User.findOne({_id: req.params.id})
+        const kloks = user.kloks
+        const availProj = await Admin.findOne({_id: user.admin._id})
+        const projects = availProj.projects
+        res.render("user/user.ejs", { user, kloks, projects, entryAccess });
         } else {
             res.send("error: no access granted").redirect('/user/login');
         }
-    } catch (error) {
-        console.error(error)
-    }
 }
 
 // CREATE
 
 const createKlok = async (req, res) => {
     if (req.cookies.usertoken) {
-        const requiredFields = ['projectID', 'date', 'hours', 'description'];
-        for (let field of requiredFields) {
-            if(!(field in req.body)) {
-            const errorMessage = `missing ${field} in request body`;
-            return res.send(errorMessage);
-        }}
         const user = await User.findById(req.params.id);
+        const adminID = user.admin
+        const admin = await Admin.findById(adminID)
         const klok = await Klok.create({
-            user: user._id,
-            projectID: req.body.projectID,
+            user: user.fullname,
+            project: req.body.project,
             date: req.body.date,
             description: req.body.description,
             hours: req.body.hours
         })
+        if (admin) {
+            admin.kloks.push(klok)
+            await admin.save()
+        }
         if (user) {
             user.kloks.push(klok);
             await user.save();

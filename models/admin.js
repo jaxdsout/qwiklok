@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 
 const KlokSchema = new mongoose.Schema({
-    projectID: String,
+    project: String,
     date: String,
     description: String,
     hours: Number,
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    user: String,
 })
 
 const UserSchema = new mongoose.Schema({
@@ -28,10 +25,13 @@ const UserSchema = new mongoose.Schema({
 const ProjectSchema = new mongoose.Schema({
     name: String,
     location: String,
-    projectID: String,
     projectStart: String,
     active: String,
     projectType: String,
+    admin: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Admin'
+    }
 })
 
 const AdminSchema = new mongoose.Schema({
