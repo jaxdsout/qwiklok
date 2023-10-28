@@ -6,9 +6,9 @@ const { adminAuth } = require("../middleware/authenticator")
 const { 
     sendNewAdminForm, sendLoginForm, createNewAdmin, adminHome, adminLogin, adminLogout,    
     findAllUsers, findAllProjects,
-    createUser, updateUser, updateUserForm, deleteUser,
-    createProject, updateProject, deleteProject, updateProjectForm,
-    updateKlokForm, updateKlok, deleteKlok
+    createUser, updateUser, 
+    deleteUser,
+    createProject, updateProject, deleteProject, updateKlok, deleteKlok
 } = require("../controllers/adminController")
 
 
@@ -46,7 +46,7 @@ router.get("/find-projects/all", findAllProjects)
 
 router.post("/new-user", createUser)
 
-router.get("/edit-user/:id", updateUserForm)
+// router.get("/edit-user/:id", updateUserForm)
 
 router.put("/edit-user/:id", updateUser)
 
@@ -57,16 +57,12 @@ router.delete("/edit-user/:id/delete", deleteUser)
 
 router.post("/new-project", createProject)
 
-router.get("/edit-project/:id", updateProjectForm)
-
 router.put("/edit-project/:id", updateProject)
 
 router.delete("/edit-project/:id/delete", deleteProject)
 
 
 // ADMIN CRUD -- KLOK
-
-router.get("/edit-klok/:id", updateKlokForm)
 
 router.put("/edit-klok/:id", updateKlok)
 
