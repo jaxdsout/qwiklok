@@ -1,116 +1,76 @@
 const express = require('express');
 const router = express.Router();
 
-const { checkAuth } = require("../middleware/checkauth")
+const { adminAuth } = require("../middleware/authenticator")
 
 const { 
-        createUser, 
-        findAllUsers, 
-        updateUser,
-        updateUserForm,
-        deleteUser,
-        createProject, 
-        findAllProjects, 
-        updateProject,
-        deleteProject,
-        updateProjectForm,
-        sendNewAdminForm,      
-        sendLoginForm,
-        createNewAdmin,
-        adminHome,
-        adminLogin,
-        adminLogout,
-        updateKlokForm,
-        updateKlok,
-        deleteKlok
-    } = require("../controllers/adminController")
+    sendNewAdminForm, sendLoginForm, createNewAdmin, adminHome, adminLogin, adminLogout,    
+    findAllUsers, findAllProjects,
+    createUser, updateUser, updateUserForm, deleteUser,
+    createProject, updateProject, deleteProject, updateProjectForm,
+    updateKlokForm, updateKlok, deleteKlok
+} = require("../controllers/adminController")
 
-
-const {
-    sendPINForm,
-    userLogin,
-    userLogout,
-    userHome,
-    createKlok
-} = require("../controllers/userController")
-
-router.get("/", sendPINForm)
-
-
-// --------------- USER LOGIN
-
-router.get("/user/login", sendPINForm)
-
-router.post("/user/login", userLogin)
-
-router.get("/user/logout", userLogout);
-
-router.get("/user/home/:id", userHome)
 
 
 // --------------- ADMIN LOGIN & SETUP
 
-router.get("/admin/login", sendLoginForm);
+router.get("/login", sendLoginForm);
 
-router.post("/admin/login", adminLogin);
+router.post("/login", adminLogin);
 
-router.get("/admin/logout", adminLogout);
+router.get("/logout", adminLogout);
 
-router.get("/admin/home/:id", adminHome)
+router.get("/home/:id", adminHome)
 
-router.get("/admin/new", sendNewAdminForm);
+router.get("/new", sendNewAdminForm);
 
-router.post("/admin/signup", createNewAdmin)
+router.post("/signup", createNewAdmin)
 
 
 // FIND ALL USERS & PROJECTS {POSTMAN}
 
-router.get("/admin/find-user/all", findAllUsers)
+router.get("/find-user/all", findAllUsers)
 
-router.get("/admin/find-projects/all", findAllProjects)
+router.get("/find-projects/all", findAllProjects)
  
 
 
-// router.use(checkAuth) /* ----------- AUTHENTICATOR*/
+
+// router.use(adminAuth) /* ----------- AUTHENTICATOR*/
 
 
-// USER KLOK
-
-router.post("/user/home/:id/klok", createKlok)
 
 
 // ADMIN CRUD -- USER
 
-router.post("/admin/new-user", createUser)
+router.post("/new-user", createUser)
 
-router.get("/admin/edit-user/:id", updateUserForm)
+router.get("/edit-user/:id", updateUserForm)
 
-router.put("/admin/edit-user/:id", updateUser)
+router.put("/edit-user/:id", updateUser)
 
-router.delete("/admin/edit-user/:id/delete", deleteUser)
+router.delete("/edit-user/:id/delete", deleteUser)
 
 
 // ADMIN CRUD -- PROJECT
 
-router.post("/admin/new-project", createProject)
+router.post("/new-project", createProject)
 
-router.get("/admin/edit-project/:id", updateProjectForm)
+router.get("/edit-project/:id", updateProjectForm)
 
-router.put("/admin/edit-project/:id", updateProject)
+router.put("/edit-project/:id", updateProject)
 
-router.delete("/admin/edit-project/:id/delete", deleteProject)
+router.delete("/edit-project/:id/delete", deleteProject)
 
 
 // ADMIN CRUD -- KLOK
 
+router.get("/edit-klok/:id", updateKlokForm)
 
-router.get("/admin/edit-klok/:id", updateKlokForm)
+router.put("/edit-klok/:id", updateKlok)
 
-router.put("/admin/edit-klok/:id", updateKlok)
-
-router.delete("/admin/edit-klok/:id/delete", deleteKlok)
-
-
+router.delete("/edit-klok/:id/delete", deleteKlok)
 
 
 module.exports = router

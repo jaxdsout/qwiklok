@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { JWT_KEY_SECRET } = require('../config')
 
-
 const adminAuth = (req, res, next) => {
     try {
         const token = req.cookies.admintoken
@@ -22,7 +21,7 @@ const userAuth = (req, res, next) => {
         const token = req.cookies.usertoken
         if (!token) {
             console.log('no token')
-            res.redirect('/admin/login')
+            res.redirect('/user/login')
         }
         const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
         req.userId = decodedToken.userId

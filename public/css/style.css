@@ -101,7 +101,7 @@ a:hover {
 }
 
 
-.keypad {
+#keypad {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -114,8 +114,9 @@ a:hover {
     height: 60px; 
     padding: 0; /* remove padding so width and height can take over */
     font-size: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid lightgrey;
+    color: white;
+    background-color: #060606;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 50%; /* make it circular */
     cursor: pointer;
     transition: background-color 0.3s;
@@ -136,7 +137,7 @@ a:hover {
 }
 
 .clear, .enter {
-    background-color: lightskyblue;
+    background-color: rgb(205, 230, 114);
 }
 
 .clear:hover, .enter:hover {
