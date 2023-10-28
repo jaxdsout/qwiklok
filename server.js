@@ -23,14 +23,21 @@ app.use(cookieParser());
 
 
 // ROUTERS
+const userRouter = require("./routers/userRouter")
+app.use("/", userRouter)
+
 const adminRouter = require("./routers/adminRouter")
-app.use("/", adminRouter)
+app.use("/admin", adminRouter)
 
 
 // START SERVER
 const startServer = async () => {
   try {
-    await mongoose.connect(DATABASE_URL);
+    await mongoose.connect(DATABASE_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 10000,
+    });
     app.listen(PORT, () => {
       console.log(`Your app is listening on port ${PORT}`);
     });
@@ -38,5 +45,4 @@ const startServer = async () => {
     console.error("Error connecting to the database:", error);
   }
 };
-
 startServer();

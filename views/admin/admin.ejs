@@ -30,17 +30,17 @@
                 <h4>New Employee Information</h4>
                 <form class="createUser" method="POST" action="/admin/new-user">
                     <p>
+                        <label for="PIN">PIN:</label>
+                        <input id="PIN" type="text" name="PIN" maxlength="5" minlength="5"/>
+                    </p><p>
                         <label for="username">Username:</label>
                         <input id="username" type="text" name="username"/>
-                    </p><p>
-                        <label for="PIN">PIN:</label>
-                        <input id="PIN" type="text" name="PIN"/>
                     </p><p>
                         <label for="fullmame">Full Name:</label>
                         <input id="fullname" type="text" name="fullname"/>
                     </p><p>
                         <label for="startDate">Start Date:</label>
-                        <input id="startDate" type="text" name="startDate"/>
+                        <input id="startDate" type="date" name="startDate"/>
                     </p><p>
                         <label for="position">Position:</label>
                         <input id="position" type="text" name="position"/>
@@ -93,7 +93,36 @@
             <h4>All Projects</h4>
             <ul>
                 <% admin.projects.forEach((project) => { %>
-                    <li><%= project.name %> <button onclick="window.location.href='/admin/edit-project/<%= project._id %>'">EDIT</button>
+                    <li><%= project.name %>    
+                        <div class="tab-content">    
+                        <label for="item-3" class="toggle">+ Project</label>
+                        <input type="checkbox" name="one" id="item-3" class="hide-input">
+                        <div class="toggle-el">
+                            <h4>EDIT</h4>
+                            <form class="createProject" method="POST" action="/admin/edit-project/<%= project.id %>/?_method=PUT">
+                                <p>
+                                    <label for="name">Name:</label>
+                                    <input id="name" type="text" name="name"/>
+                                </p>
+                                <p>
+                                    <label for="location">Location:</label>
+                                    <input id="location" type="text" name="location"/>
+                                </p><p>
+                                <label for="projectID">Project ID:</label>
+                                <input id="projectID" type="text" name="projectID"/>
+                                </p><p>
+                                <label for="startDate">Start Date:</label>
+                                <input id="startDate" type="date" name="startDate"/>
+                                </p><p>
+                                <label for="active">Active:</label>
+                                <input id="active" type="checkbox" name="active"/>
+                                </p><p><label for="projectType">Project Type:</label>
+                                <input id="projectType" type="text" name="projectType"/>
+                                </p><p>
+                                <button type="submit">Edit Project</button></p>
+                            </form>
+                        </div>
+                        </div>
                   <% }) %>
             </ul>
         </div>
