@@ -1,120 +1,216 @@
-
 <div class="page-content">
-    <img src="https://i.ibb.co/w43TQjw/Admin-header.png" alt="header image">
+    <img src="https://i.ibb.co/QFrVfxR/New-Project.png" alt="Admin Dashboard">
     <p>Welcome to your dashboard!</p>
     
     <div class="logout">
         <button onclick="window.location.href='/admin/logout'">Logout</button>
     </div>
-
+    
     <br>
 
     <div class="tabbed">
         <input type="radio" id="tab1" name="css-tabs" checked>
         <input type="radio" id="tab2" name="css-tabs" checked>
         <input type="radio" id="tab3" name="css-tabs" checked>
-        <input type="radio" id="tab4" name="css-tabs" checked>
-        <input type="radio" id="tab5" name="css-tabs" checked>
-        <input type="radio" id="tab6" name="css-tabs" checked>
+        
 
         <ul class="tabs">
         <input type="radio" id="tab1" name="css-tabs" checked>
-            <li class="tab"><label for="tab1">All Employees</label></li>
-            <li class="tab"><label for="tab2">Add Employee</label></li>
-            <li class="tab"><label for="tab3">Edit Employees</label></li>
-            <li class="tab"><label for="tab4">All Projects</label></li>
-            <li class="tab"><label for="tab5">Add Project</label></li>
+            <li class="tab"><label for="tab1">Employees</label></li>
+            <li class="tab"><label for="tab2">Projects</label></li>
+            <li class="tab"><label for="tab3">Kloks</label></li>
         </ul>
 
+
+
         <div class="tab-content">
+            <label for="item-1" class="toggle">+ Employee</label>
+            <input type="checkbox" name="one" id="item-1" class="hide-input">
+            <div class="toggle-el">
+                <h4>New Employee Information</h4>
+                <form class="createUser" method="POST" action="/admin/new-user">
+                    <p>
+                        <label for="username">Username:</label>
+                        <input id="username" type="text" name="username"/>
+                    </p><p>
+                        <label for="PIN">PIN:</label>
+                        <input id="PIN" type="text" name="PIN"/>
+                    </p><p>
+                        <label for="fullmame">Full Name:</label>
+                        <input id="fullname" type="text" name="fullname"/>
+                    </p><p>
+                        <label for="startDate">Start Date:</label>
+                        <input id="startDate" type="text" name="startDate"/>
+                    </p><p>
+                        <label for="position">Position:</label>
+                        <input id="position" type="text" name="position"/>
+                    </p><p>
+                        <label for="hourlyPay">Pay Rate:</label>
+                        <input id="hourlyPay" type="number" name="hourlyPay"/>
+                    </p><p>
+                        <button type="submit">Add User</button>
+                    </p>
+                </form>
+            </div>
             <h4>All Employees</h4>
-            <p>A table of employees will be displayed here.</p>
-
+            <ul>
+                <% users.forEach((user) => { %>
+                <li>
+                <%= user.fullname %> 
+                <!-- DIV GOES HERE -->    
+                <label for="item-2" class="toggle">Edit</label>
+                <input type="checkbox" name="one" id="item-2" class="hide-input">
+                <div class="toggle-el">
+                    <h4>Edit Employee Information</h4>
+                    <form class="editUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
+                        <p>
+                            <label for="username">Username:</label>
+                            <input id="username" type="text" name="username"/>
+                        </p><p>
+                            <label for="PIN">PIN:</label>
+                            <input id="PIN" type="text" name="PIN"/>
+                        </p><p>
+                            <label for="fullmame">Full Name:</label>
+                            <input id="fullname" type="text" name="fullname"/>
+                        </p><p>
+                            <label for="startDate">Start Date:</label>
+                            <input id="startDate" type="text" name="startDate"/>
+                        </p><p>
+                            <label for="position">Position:</label>
+                            <input id="position" type="text" name="position"/>
+                        </p><p>
+                            <label for="hourlyPay">Pay Rate:</label>
+                            <input id="hourlyPay" type="number" name="hourlyPay"/>
+                        </p><p>
+                            <button type="submit">Save</button>
+                        </p>
+                    </form>
+                    <button>Delete</button>
+                </div>
+                </li>
+                <% }) %>
+            </ul>
         </div>
 
-        <div class="tab-content">
-            <h4>Add Employee</h4>
-            
-            <form class="createUser" method="POST" action="/user/admin/new-user">
-                <label for="username">Username:</label>
-                    <input id="username" type="text" name="username"/>
-                <br>
-                <label for="fullmame">Full Name:</label>
-                    <input id="fullname" type="text" name="fullname"/>
-                <br>
-                <label for="PIN">PIN:</label>
-                    <input id="PIN" type="number" name="PIN"/>
-                <br>
-                <label for="startDate">Start Date:</label>
-                    <input id="startDate" type="text" name="startDate"/>
-                <br>
-                <label for="position">Position:</label>
-                    <input id="position" type="text" name="position"/>
-                <br>
-                <label for="hourlyPay">Pay Rate:</label>
-                    <input id="hourlyPay" type="number" name="hourlyPay"/>
-                <button type="submit">Add Employee</button>
-            </form>    
-        
-        </div>
-
-        <div class="tab-content">
-            <h4>Edit Employees</h4>
-            <form class="createUser" method="POST" action="/admin/modify-user/updated?_method=PUT">
-                <label for="username">Username:</label>
-                    <input id="username" type="text" name="username"/>
-                <br>
-                <label for="fullmame">Full Name:</label>
-                    <input id="fullname" type="text" name="fullname"/>
-                <br>
-                <label for="PIN">PIN:</label>
-                    <input id="PIN" type="number" name="PIN"/>
-                <br>
-                <label for="startDate">Start Date:</label>
-                    <input id="startDate" type="text" name="startDate"/>
-                <br>
-                <label for="position">Position:</label>
-                    <input id="position" type="text" name="position"/>
-                <br>
-                <label for="hourlyPay">Pay Rate:</label>
-                    <input id="hourlyPay" type="number" name="hourlyPay"/>
-                <button type="submit">Edit Employee</button>
-            </form>
-
-
-            <h4>DELETE Employee</h4>
-            <h5>WARNING: NO GOING BACK FROM HERE</h5>
-            <form class="deleteUser" method="POST" action="/admin/modify-user/deleted?_method=DELETE">
-                <button type="submit">Delete Employee</button>
-            </form>
-        </div>
-
-        <div class="tab-content">
-            <h4>All Projects</h4>
-            <p>All projects will be displayed here</p>
-        </div>
-
-        <div class="tab-content">
-            <h4>Add New Project</h4>
-            <form class="createProject" method="POST" action="/user/admin/new-project">
-                <label for="name">Name:</label>
-                    <input id="name" type="text" name="name"/>
-                <br>
-                <label for="location">Location:</label>
-                    <input id="location" type="text" name="location"/>
-                <br>
-                <label for="startDate">Start Date:</label>
+        <div class="tab-content">    
+            <label for="item-3" class="toggle">+ Project</label>
+            <input type="checkbox" name="one" id="item-3" class="hide-input">
+            <div class="toggle-el">
+                <h4>New Project Information</h4>
+                <form class="createProject" method="POST" action="/admin/new-project">
+                    <p>
+                        <label for="name">Name:</label>
+                        <input id="name" type="text" name="name"/>
+                    </p>
+                    <p>
+                        <label for="location">Location:</label>
+                        <input id="location" type="text" name="location"/>
+                    </p><p>
+                    <label for="projectID">Project ID:</label>
+                    <input id="projectID" type="text" name="projectID"/>
+                    </p><p>
+                    <label for="startDate">Start Date:</label>
                     <input id="startDate" type="date" name="startDate"/>
-                <br>
-                <label for="active">Active:</label>
+                    </p><p>
+                    <label for="active">Active:</label>
                     <input id="active" type="checkbox" name="active"/>
-                <br>
-                <label for="projectType">Project Type:</label>
+                    </p><p><label for="projectType">Project Type:</label>
                     <input id="projectType" type="text" name="projectType"/>
-                <button type="submit">Add Project</button>
-            </form>
+                    </p><p>
+                    <button type="submit">Add Project</button></p>
+                </form>
+            </div>
+            <h4>All Projects</h4>
+            <ul>
+                <% projects.forEach((project) => { %>
+                    <li><%= project.name %> <button onclick="window.location.href='/admin/edit-project/<%= project._id %>'">EDIT</button>
+                  <% }) %>
+            </ul>
         </div>
 
+
+
+        <div class="tab-content">
+            <label for="item-4" class="toggle">+ Klok</label>
+            <input type="checkbox" name="one" id="item-4" class="hide-input">
+            <div class="toggle-el">
+                <h4>Add Klok (Time-Punch)</h4>
+                <form class="createKlok" method="POST" action="/admin/new-klok">
+                    <p>
+                        <label for="user">User:</label>
+                        <input id="user" type="text" name="user"/>
+                    </p><p>
+                        <label for="projectID">Project:</label>
+                        <input id="projectID" type="text" name="projectID"/>
+                    </p><p> 
+                        <label for="date">Date:</label>
+                        <input id="date" type="text" name="date"/>
+                    </p><p>
+                        <label for="description">Description:</label>
+                        <input id="description" type="text" name="description"/>
+                    </p><p>
+                        <label for="hours">Hours:</label>
+                        <input id="hours" type="number" name="hours"/>
+                    </p><p>
+                        <button type="submit">Add Klok</button>
+                    </p>
+                </form>
+            </div>
+            <h4>All Kloks</h4>
+            <ul>
+                <% kloks.forEach((klok) => { %>
+                    <li><%= klok.name %> <button onclick="window.location.href='/admin/editklok/<%= klok._id %>'">EDIT</button>
+                  <% }) %>
+            </ul>
+        </div>  
 
     </div>
 </div>
+
+
+
+
+
+<!-- MODAL FOR NEW USER/EMPLOYEE -->
+
+
+
+<!-- GOES TO MODAL
+<div class="tab-content">
+            
+        </div>
+-->
+<!-- EDIT GOES TO MODAL
+        <div class="tab-content">
+            <h4>Add New Project</h4>
+            <form class="createProject" method="POST" action="/admin/new-project">
+                <fieldset>
+                    <label for="name">Name:</label>
+                    <input id="name" type="text" name="name"/>
+                </fieldset>
+                <fieldset>
+                    <label for="location">Location:</label>
+                    <input id="location" type="text" name="location"/>
+                </fieldset>
+                <fieldset>
+                    <label for="projectID">Project ID:</label>
+                    <input id="projectID" type="text" name="projectID"/>
+                </fieldset>
+                <fieldset>
+                    <label for="startDate">Start Date:</label>
+                    <input id="startDate" type="date" name="startDate"/>
+                </fieldset>
+                <fieldset>
+                    <label for="active">Active:</label>
+                    <input id="active" type="checkbox" name="active"/>
+                </fieldset>
+                <fieldset>
+                    <label for="projectType">Project Type:</label>
+                    <input id="projectType" type="text" name="projectType"/>
+                </fieldset>
+                <fieldset>
+                    <button type="submit">Add Project</button>
+                </fieldset>
+            </form>
+        </div>
+    -->

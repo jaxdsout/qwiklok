@@ -1,78 +1,116 @@
 const express = require('express');
 const router = express.Router();
 
-const { checkAuth } = require("../middleware/checkauth")
+// const { checkAuth } = require("../middleware/checkauth")
 
 const { 
-        // createUser, 
-        // findAllUsers, 
-        // createProject, 
-        // findAllProjects, 
-        // adminPageKlok,
-        // updateUser,
-        // updateProject,
-        // deleteUser,
-        // deleteProject,
-        // createKlok,
-        homePage, 
+        createUser, 
+        findAllUsers, 
+        updateUser,
+        updateUserForm,
+        deleteUser,
+        createProject, 
+        findAllProjects, 
+        updateProject,
+        deleteProject,
+        updateProjectForm,
         sendNewAdminForm,      
         sendLoginForm,
-        login,
-        logout,
         createNewAdmin,
-        adminHome
+        adminHome,
+        adminLogin,
+        adminLogout,
+        createKlokAdmin,
+        updateKlokForm,
+        updateKlok,
+        deleteKlok
     } = require("../controllers/adminController")
 
 
+const {
+    sendPINForm,
+    userLogin,
+    userLogout,
+    userHome,
+    createKlok
+} = require("../controllers/userController")
+
+router.get("/", sendPINForm)
 
 
-router.get("/", homePage)
+// --------------- USER LOGIN
+
+router.get("/user/login", sendPINForm)
+
+router.post("/user/login", userLogin)
+
+router.get("/user/logout", userLogout);
+
+router.get("/user/home/:id", userHome)
+
+
+// --------------- ADMIN LOGIN & SETUP
+
+router.get("/admin/login", sendLoginForm);
+
+router.post("/admin/login", adminLogin);
+
+router.get("/admin/logout", adminLogout);
 
 router.get("/admin/home", adminHome)
 
-// CREATE
 router.get("/admin/new", sendNewAdminForm);
 
-router.post("/admin/signup", createNewAdmin);
-
-//LOGIN
-router.get("/admin/login", sendLoginForm);
-
-router.post("/admin/login", login);
-
-//LOGOUT
-router.get("/admin/logout", logout);
+router.post("/admin/signup", createNewAdmin)
 
 
-// // CREATE 
-// router.post("/admin/new-user", createUser)
+// FIND ALL USERS & PROJECTS {POSTMAN}
 
-// router.post("/admin/new-project", createProject)
+router.get("/admin/find-user/all", findAllUsers)
 
-
-// // READ
-// router.get("/admin/all-users", findAllUsers)
-
-// router.get("/admin/all-projects", findAllProjects)
+router.get("/admin/find-projects/all", findAllProjects)
+ 
 
 
-// UPDATE
-// router.put("/admin/update-user/", updateUser)
-
-// router.put("/admin/update-project/", updateProject)
+// router.use(checkAuth) /* ----------- AUTHENTICATOR*/
 
 
-// // DELETE
-// router.delete("/admin/delete-user/", deleteUser)
+// USER KLOK
 
-// router.delete("/admin/delete-project/", deleteProject)
-
+router.post("/user/home/:id/klok", createKlok)
 
 
+// ADMIN CRUD -- USER
 
-// USER FUNCTIONS
+router.post("/admin/new-user", createUser)
 
-// router.post("/user/klok", createKlok)
+router.get("/admin/edit-user/:id", updateUserForm)
+
+router.put("/admin/edit-user/:id", updateUser)
+
+router.delete("/admin/edit-user/:id/delete", deleteUser)
+
+
+// ADMIN CRUD -- PROJECT
+
+router.post("/admin/new-project", createProject)
+
+router.get("/admin/edit-project/:id", updateProjectForm)
+
+router.put("/admin/edit-project/:id", updateProject)
+
+router.delete("/admin/edit-project/:id/delete", deleteProject)
+
+
+// ADMIN CRUD -- KLOK
+
+router.post("/admin/new-klok", createKlokAdmin)
+
+router.get("/admin/edit-klok/:id", updateKlokForm)
+
+router.put("/admin/edit-klok/:id", updateKlok)
+
+router.delete("/admin/edit-klok/:id/delete", deleteKlok)
 
 
 
