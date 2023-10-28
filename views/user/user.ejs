@@ -39,19 +39,22 @@
         </div>
         <div class="recentKloks">
         <h2> RECENT KLOKS </h2>
-        <ul>
-          <% kloks.forEach((klok) => { %>
-            <li>
-            <p>Description: <%= klok.description %></p>
-            <p>Project: <%= klok.project %></p>
-            <p>Hours: <%= klok.hours %></p>
-            <p>Date: <%= klok.date %></p>
-            <p>Name: <%= klok.user %> </p>
-            </li>
-            <br>
-            <% }) %>
-        </ul>
+            <div>
+                <ul id="klokBox">
+                <% kloks.forEach((klok) => { %>
+                <li id="specificKlok">
+                <p>Description: <%= klok.description %></p>
+                <p>Project: <%= klok.project %></p>
+                <p>Hours: <%= klok.hours %></p>
+                <p>Date: <%= klok.date %></p>
+                </li>
+                <br>
+                <% }) %>
+                </ul>
+            </div>
         </div>
+  
+      
   </div>
 </div>
 
