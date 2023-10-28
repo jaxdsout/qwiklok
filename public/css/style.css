@@ -299,6 +299,14 @@ background: #eee;
 border-radius: 50%;
 }
 
+#klokBox {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#specificKlok {
+  flex: 0 0 auto;
+}
 
 .overlay {
 position: fixed;
