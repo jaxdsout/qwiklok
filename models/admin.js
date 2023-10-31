@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const KlokSchema = new mongoose.Schema({
     project: String,
-    date: String,
+    date: { type: String, timestamps: true },
     description: String,
     hours: Number,
     user: String,
+    
 })
 
 const UserSchema = new mongoose.Schema({

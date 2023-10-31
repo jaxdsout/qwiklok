@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const { userAuth } = require("../middleware/authenticator")
-
 const {
     sendPINForm,
     userLogin,
@@ -11,6 +9,8 @@ const {
     createKlok
 } = require("../controllers/userController");
 
+
+router.get("/", sendPINForm)
 
 // --------------- USER LOGIN
 
@@ -22,8 +22,6 @@ router.get("/user/logout", userLogout);
 
 router.get("/user/home/:id", userHome)
 
-
-// router.use(userAuth)
 
 // USER KLOK
 

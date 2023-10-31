@@ -1,11 +1,11 @@
 <div class="page-content">
-    <div class="adminnav">
+    <div id="adminnav">
         <a href="/user/logout">USER LOGOUT</a>
     </div>
     <div class="maincontainer klok">
         <div class="newKlok">
         <% if (user) { %>
-            <h1> Hi <%= user.username %>!</h1>
+            <h1> Hi, <%= user.fullname %>!</h1>
         <% } %>
 
         <legend>KLOK YOUR HOURS</legend>
@@ -35,11 +35,10 @@
             <div>
                 <button type="submit">Log Time</button>
             </div>
-            </fieldset>
         </div>
         <div class="recentKloks">
-        <h2> RECENT KLOKS </h2>
-            <div>
+        <legend> RECENT KLOKS </legend>
+            <div id="klokkieBox">
                 <ul id="klokBox">
                 <% kloks.forEach((klok) => { %>
                 <li id="specificKlok">
