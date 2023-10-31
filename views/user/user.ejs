@@ -1,14 +1,18 @@
 <div class="page-content">
     <div id="adminnav">
-        <a href="/user/logout">USER LOGOUT</a>
+        <img src="https://i.ibb.co/LPds7zd/Klok-header.png">
+            <% if (user) { %>
+                <h3> Hi, <%= user.fullname %>!</h3>
+                <br>
+            <% } %>
+            <div class="logout">
+                <button onclick="window.location.href='/user/logout'">Logout</button>
+            </div>
     </div>
     <div class="maincontainer klok">
         <div class="newKlok">
-        <% if (user) { %>
-            <h1> Hi, <%= user.fullname %>!</h1>
-        <% } %>
-
         <legend>KLOK YOUR HOURS</legend>
+        <br>
         <form class="createKlok" method="POST" action="/user/home/<%= user._id %>/klok">
             <div>
                 <label for="project">Project:</label>
@@ -33,11 +37,12 @@
                 <input id="description" type="text" size="50" name="description" required="true"/>
             </div>
             <div>
-                <button type="submit">Log Time</button>
+                <button type="submit">Klok Time</button>
             </div>
         </div>
+        <br>
         <div class="recentKloks">
-        <legend> RECENT KLOKS </legend>
+            <legend> RECENT KLOKS </legend>
             <div id="klokkieBox">
                 <ul id="klokBox">
                 <% kloks.forEach((klok) => { %>
@@ -51,10 +56,8 @@
                 <% }) %>
                 </ul>
             </div>
-        </div>
-  
-      
-  </div>
+        </div>  
+    </div>
 </div>
 
 

@@ -7,14 +7,17 @@ const { JWT_KEY_SECRET } = require("../config");
 
 
 // LOGIN - GET
-const sendPINForm = (req, res, next) => {
+const sendPINForm = async (req, res) => {
     let entryAccess = false;
-    console.log(req.params._id)
-    if(req.cookies.usertoken) {
+    const token = req.cookies.usertoken
+    if(token) {
         entryAccess = true
-    }
-    res.render('user/login.ejs', {entryAccess})
-    
+        const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+        const userID = decodedToken.userId
+        const user = await User.findOne({ _id: userID })
+        res.redirect(`/user/home/${user.id}`)
+    } 
+    res.render('user/login.ejs', {entryAccess}) 
 }
 
 // LOGIN - POST 
