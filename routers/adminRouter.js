@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const { adminAuth } = require("../middleware/authenticator")
-
 const { 
     sendNewAdminForm, sendLoginForm, createNewAdmin, adminHome, adminLogin, adminLogout,    
     findAllUsers, findAllProjects,
@@ -35,9 +33,6 @@ router.get("/find-projects/all", findAllProjects)
 // DASHBOARD 
 
 router.get("/home/:id", adminHome)
-
-
-// router.use(adminAuth) /* ----------- AUTHENTICATOR*/
 
 
 // ADMIN C(R)UD -- USER

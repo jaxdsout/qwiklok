@@ -1,4 +1,4 @@
-const { User, Klok, Admin } = require('../models/admin');
+const { User, Klok, Admin, Project } = require('../models/admin');
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -64,7 +64,7 @@ const userHome = async (req, res) => {
     let entryAccess = false;
     if (req.cookies.usertoken) {
         entryAccess = true
-        const user = await User.findOne({_id: req.params.id})
+        const user = await User.findOne({ _id: req.params.id})
         const kloks = user.kloks
         const availProj = await Admin.findOne({_id: user.admin._id})
         const projects = availProj.projects
