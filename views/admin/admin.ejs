@@ -1,20 +1,18 @@
 <div class="page-content">
-    <img src="https://i.ibb.co/QFrVfxR/New-Project.png" alt="Admin Dashboard">
-    <p><%= admin.fullname %>, Welcome to your dashboard!</p>
-    
-    <div class="logout">
-        <button onclick="window.location.href='/admin/logout'">Logout</button>
+    <div id="admin-header">
+        <img src="https://i.ibb.co/QFrVfxR/New-Project.png" alt="Admin Dashboard">
+        <p><b><%= admin.organization %></b></p>
+        <p><%= admin.fullname %>, Welcome to your dashboard!</p>
+        <div class="logout">
+            <button onclick="window.location.href='/admin/logout'">Logout</button>
+        </div>
     </div>
-    
     <br>
-
     <div class="tabbed">
         <input type="radio" id="tab1" name="css-tabs" checked>
         <input type="radio" id="tab2" name="css-tabs" checked>
         <input type="radio" id="tab3" name="css-tabs" checked>
         <input type="radio" id="tab4" name="css-tabs" checked>
-
-        
         <ul class="tabs">
         <input type="radio" id="tab1" name="css-tabs" checked>
             <li class="tab"><label for="tab1">Summary</label></li>
@@ -22,13 +20,15 @@
             <li class="tab"><label for="tab3">Projects</label></li>
             <li class="tab"><label for="tab4">Kloks</label></li>
         </ul>
+
+
     <div class="tab-content">
         <div class="summaryTab">
             <legend>SUMMARY</legend>
             <legend>USER SPECIFICS</legend>
-            <p>TOTAL USERS: <b><%= admin.users.length %></b></p>
+            <legend id="total">TOTAL USERS: <span id="total-num"><%= admin.users.length %></span></legend>
             <ul>
-            <% users.forEach((user) => { %>
+            <% users.forEach((user, index) => { %>
                 <li>
                 <% let userEarnings = 0%>
                 <% let userHours = 0 %>
@@ -37,17 +37,25 @@
                     <% userHours += klok.hours %>
                     <% userEarnings += klok.hours * user.hourlyPay %>
                 <% }) %>
-                <h4><%= user.fullname %></h4>
-                <ul>
-                    <li><span>Total Hours: <%= userHours %> </span> </li>
-                    <li><span>Pay Rate: $<%= user.hourlyPay %></span></li>
-                    <li><span>Total Earnings: <b>$<%= userEarnings %></b></span></li>
-                </ul>
+                <b><%= user.fullname %></b>
+                <div class="userStats">
+                    <label for="view-user-<%= index %>" class="toggle"> EXPAND </label>
+                    <input type="checkbox" name="view-user" id="view-user-<%= index %>" class="hide-input">
+                    <div class="toggle-el">
+                        <div class="viewUserContainer-<%= index %>">
+                            <ul>
+                                <li><span>Total Hours: <%= userHours %> </span> </li>
+                                <li><span>Pay Rate: $<%= user.hourlyPay %></span></li>
+                                <li><span>Total Earnings: <b>$<%= userEarnings %></b></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 </li>
             <% }) %>
             </ul>
             <legend>PROJECT SPECIFICS</legend>
-            <p>TOTAL PROJECTS: <b><%= admin.projects.length %></b></p>
+            <legend id="total">TOTAL PROJECTS: <span id="total-num"><%= admin.projects.length %></span></legend>
             <ul>
                 <% let projectHours = {}; %>
                 <% admin.kloks.forEach((klok) => { %>
@@ -57,39 +65,44 @@
                         <% } %>
                         <% projectHours[project] += klok.hours; %>
                 <% }) %>
-                <% admin.projects.forEach((project) => { %>
+                <% admin.projects.forEach((project, index) => { %>
                     <li>
-                        <h4><%= project.name %> </h4> 
-                        <ul>
-                            <li><span>TOTAL : <%= projectHours[project.name] %> hours </span></li>
-                            <li> <span> HOURS PER USER:</span></li>
-                            <% let userProjectHours = {} %>
-                            <% admin.kloks.forEach((klok) => { %>
-                            <% if (klok.project === project.name) { %>
-                                <% const user = klok.user %>
-                                <% if (!userProjectHours[user]) { %>
-                                    <% userProjectHours[user] = 0 %>
-                                <% } %>
-                                <% userProjectHours[user] += klok.hours %>
-                        <% } %>
-                <% }) %>
-                <% for (const user in userProjectHours) { %>
-                    <li><b><%= user %></b> <span>: <%= userProjectHours[user] %> hours</span></li>
-                <% } %>
-                        </ul>
-            </li>
-        <% }) %>
-    </ul>
-
-
-<legend>KLOK SPECIFICS</legend>
-<p>TOTAL KLOKS: <b><%= admin.kloks.length %></b></p>
-<% let klokHours = 0; %>
-<% admin.kloks.forEach((klok) => { %>
-<% klokHours += klok.hours %>
-<% }) %>
-<p>TOTAL HOURS KLOKKED: <b><%= klokHours %></b> </p>
-
+                        <b><%= project.name %> </b>
+                        <div class="projectStats">
+                            <label for="view-project-<%= index %>" class="toggle"> EXPAND </label>
+                            <input type="checkbox" name="view-project" id="view-project-<%= index %>" class="hide-input">
+                            <div class="toggle-el">
+                                <div id="viewProjectContainer-<%= index %>">
+                                    <ul>
+                                        <li><span>TOTAL : <%= projectHours[project.name] %> hours </span></li>
+                                        <li> <span> HOURS PER USER:</span></li>
+                                        <% let userProjectHours = {} %>
+                                        <% admin.kloks.forEach((klok) => { %>
+                                        <% if (klok.project === project.name) { %>
+                                            <% const user = klok.user %>
+                                            <% if (!userProjectHours[user]) { %>
+                                                <% userProjectHours[user] = 0 %>
+                                            <% } %>
+                                            <% userProjectHours[user] += klok.hours %>
+                                        <% } %>
+                                        <% }) %>
+                                        <% for (const user in userProjectHours) { %>
+                                            <li><b><%= user %></b> <span>: <%= userProjectHours[user] %> hours</span></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>     
+                    </li>
+                 <% }) %>
+                </ul>
+            <legend>KLOK SPECIFICS</legend>
+            <legend id="total">TOTAL KLOKS: <span id="total-num"><%= admin.kloks.length %></span></legend>
+            <% let klokHours = 0; %>
+            <% admin.kloks.forEach((klok) => { %>
+            <% klokHours += klok.hours %>
+            <% }) %>
+            <legend id="total">TOTAL HOURS KLOKKED: <span id="total-num"><%= klokHours %></span></legend>
         </div>
     </div>
 
@@ -99,7 +112,7 @@
             <label for="add-user" class="toggle">+ USER</label>
             <input type="checkbox" name="add-user" id="add-user" class="hide-input">
             <div class="toggle-el">
-                <b>New User Information</b>
+                <legend>New User Information</legend>
                 <form class="createUser" method="POST" action="/admin/new-user">
                     <p>
                         <label for="username">Username:</label>
@@ -126,7 +139,7 @@
             </div>
         </div>
         <div class="allUsers">
-            <h4>All Users</h4>
+            <legend>All Users</legend>
             <ul>
                 <% users.forEach((user, index) => { %>
                     <li>
@@ -182,13 +195,12 @@
             <label for="item-3" class="toggle">+ PROJECT</label>
             <input type="checkbox" name="one" id="item-3" class="hide-input">
             <div class="toggle-el">
-                <h4>New Project Information</h4>
+                <legend>New Project Information</legend>
                 <form class="createProject" method="POST" action="/admin/new-project">
                     <p>
                         <label for="name">Name:</label>
                         <input id="name" type="text" name="name" required="true"/>
-                    </p>
-                    <p>
+                    </p><p>
                         <label for="location">Location:</label>
                         <input id="location" type="text" name="location" required="true"/>
                     </p><p>
@@ -205,7 +217,7 @@
             </div> 
         </div>
         <div class="allProjects">
-            <h4>All Projects</h4>
+            <legend>All Projects</legend>
             <ul>
                 <% admin.projects.forEach((project, index) => { %>
                 <li>
@@ -260,7 +272,7 @@
             <label for="item-4" class="toggle">+ KLOK</label>
             <input type="checkbox" name="one" id="item-4" class="hide-input">
             <div class="toggle-el">
-                <h4>Add Klok (Time-Punch)</h4>
+                <legend>Add Klok (Time-Punch)</legend>
                 <form class="createKlok" method="POST" action="/admin/new-klok">
                     <p>
                         <label for="user">User:</label>
@@ -296,7 +308,7 @@
             </div>
         </div>
         <div class="allKloks" id="klokkieBox">
-            <h4>All Kloks</h4>
+            <legend>All Kloks</legend>
             <ul>
                 <% klokkies.forEach((klokkie, index) => { %>
                 <li>
