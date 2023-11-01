@@ -1,23 +1,24 @@
 <div class="page-content">
-    
     <img src="https://i.ibb.co/n6Fh8v7/new-clock.png">
-    
-    <h2> ADMIN LOGIN </h2>
-    <div class="adminlogin">
-        <form class="login" method="POST" action="/admin/login">
-            <p>
+
+    <legend>ADMIN LOGIN</legend>
+    <div id="split">
+            <form class="adminlogin" method="POST" action="/admin/login">
+            <div>
                 <label for="email" >EMAIL:</label>
                 <input id="email" type="email" name="email">
-            </p>
-            <p>
+            </div>
+            <div>
                 <label for="password">PASSWORD</label>
                 <input id="password" type="password" name="password">
-            </p>
-            <br>
-            <input type="submit" value="Submit">
-            
-            or <a href="/admin/new">Sign Up</a>
-            
-        </form>
+            </div>
+            <div>
+                 <input type="submit" value="SUBMIT">
+            </div>          
+            </form>
+        <br>
+        <p>NEED AN ACCOUNT FOR YOUR COMPANY?</p>
+        <button onclick="window.location.href='/admin/new'">SIGN UP</button>
     </div>
+
 </div>

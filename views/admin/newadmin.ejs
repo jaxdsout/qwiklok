@@ -1,27 +1,28 @@
 <div class="page-content">
+    <img src="https://i.ibb.co/ccr99tt/login-pen.png">
     
-    <img src="https://i.ibb.co/r62zMD3/login.png">
-    
+    <legend>ADMIN & ORGANIZATION SIGNUP</legend>
     <div class="newUser">
-        <h2>ADD NEW ADMIN</h2>
         <form class="createUser" method="POST" action="/admin/signup/">
-        <p>
-            <label for="username">Username:</label>
-            <input id="username" type="text" name="username"/>
-        </p><p>
-            <label for="fullname">Full Name:</label>
-            <input id="fullname" type="text" name="fullname"/>
-        </p><p>
-            <label for="email">Email:</label>
-            <input id="email" type="email" name="email"/>
-        </p><p>
-            <label for="password">Password:</label>
-            <input id="password" type="password" name="password"/>
-        </p><p>
-            <input type="Submit" value="submit">
-            
-            or <a href="/admin/login">Login</a>
-        </p>    
+            <div>
+                <label for="fullname">Full Name:</label>
+                <input id="fullname" type="text" name="fullname" required="true"/>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" required="true"/>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" required="true"/>
+            </div>
+            <div>
+                <label for="organization">Organization:</label>
+            <input id="organization" type="text" name="organization" required="true"/>
+            </div>
+            <div>
+                <input type="submit" value="SUBMIT">
+            </div>
         </form>
     </div>
 </div>

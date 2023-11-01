@@ -1,8 +1,4 @@
-const User = require('../models/user');
-const Klok = require("../models/klok");
-
-User.Promise = global.Promise
-Klok.Promise = global.Promise
+const { User, Klok, Admin, Project } = require('../models/admin');
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -13,29 +9,36 @@ const { JWT_KEY_SECRET } = require("../config");
 // LOGIN - GET
 const sendPINForm = (req, res, next) => {
     let entryAccess = false;
+    console.log(req.params._id)
     if(req.cookies.usertoken) {
         entryAccess = true
-    } 
+    }
     res.render('user/login.ejs', {entryAccess})
+    
 }
 
 // LOGIN - POST 
 const userLogin = async (req, res) => {
     try{
-        const user = await User.findOne({ PIN: req.body.PIN })
-        if (!user){
-            return res.send('user not found')
+        if (req.body.PIN) {
+            if (req.body.PIN.length === 5) {
+                const user = await User.findOne({ PIN: req.body.PIN })
+                const verify = bcrypt.compare(req.body.PIN, user.PIN);
+                if (!verify) {
+                    return res.send("invalid PIN")
+                }
+                const token = jwt.sign(
+                    { userId: user.id, PIN: user.PIN },
+                    JWT_KEY_SECRET,
+                    // { expiresIn: '1hr' }
+                );
+                return res.cookie('usertoken', token).redirect(`/user/home/${user._id}`)
+            } else {
+                return res.send('PIN must be 5 digits long')
+            }
+        } else {
+            return res.send('PIN is required ')
         }
-        const verify = bcrypt.compare(req.body.PIN, user.PIN);
-        if (!verify) {
-            return res.send("invalid PIN")
-        }
-        const token = jwt.sign(
-            { userId: user.id, PIN: user.PIN },
-            JWT_KEY_SECRET,
-            { expiresIn: '1hr' }
-        );
-        return res.cookie('usertoken', token).redirect(`/user/home/${user._id}`)
     } catch (error) {
         console.error(error)
     }
@@ -43,52 +46,57 @@ const userLogin = async (req, res) => {
 
 // LOGOUT
 const userLogout = (req, res, next) => {
-    const token = req.cookies.usertoken;    
-    if(!token) {
+    if(!req.cookies.usertoken) {
         return res.send('Failed to logout')
     }
-    const data = jwt.verify(token, JWT_KEY_SECRET)
-    console.log("Logging out now", data)
-    return res.clearCookie('usertoken').redirect('/user/login');
+    try {
+        const data = jwt.verify(req.cookies.usertoken, JWT_KEY_SECRET)
+        console.log("Logging out now", data)
+        return res.clearCookie('usertoken').redirect('/user/login');
+    } catch (error) {
+        console.error(error)
+    }
+
 }
 
 // USER HOME PAGE
 const userHome = async (req, res) => {
-    let entryAccess = true
+    let entryAccess = false;
     if (req.cookies.usertoken) {
-        const user = await User.findOne({_id: req.params.id})
-        const kloks = await Klok.find({user: req.params.id})
-        res.render("user/user.ejs", { user, kloks, entryAccess });
-    } else {
-        res.send("error: no access granted")
-    }
+        entryAccess = true
+        const user = await User.findOne({ _id: req.params.id})
+        const kloks = user.kloks
+        const availProj = await Admin.findOne({_id: user.admin._id})
+        const projects = availProj.projects
+        res.render("user/user.ejs", { user, kloks, projects, entryAccess });
+        } else {
+            res.send("error: no access granted").redirect('/user/login');
+        }
 }
 
 // CREATE
 
 const createKlok = async (req, res) => {
-    let entryAccess = true
     if (req.cookies.usertoken) {
-    try {
-    const user = await User.findById(req.params.id);
-
-      const newKlok = await Klok.create({
-        user: user._id,
-        projectID: req.body.projectID,
-        date: req.body.date,
-        description: req.body.description,
-        hours: req.body.hours
-      });
-      if (user) {
-        user.kloks.push(newKlok);
-        await user.save();
-        res.redirect(`/user/home/${user._id}`);
-      } 
-      console.log(user.kloks)
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while creating and updating klok.');
-    }
+        const user = await User.findById(req.params.id);
+        const adminID = user.admin
+        const admin = await Admin.findById(adminID)
+        const klok = await Klok.create({
+            user: user.fullname,
+            project: req.body.project,
+            date: req.body.date,
+            description: req.body.description,
+            hours: req.body.hours
+        })
+        if (admin) {
+            admin.kloks.push(klok)
+            await admin.save()
+        }
+        if (user) {
+            user.kloks.push(klok);
+            await user.save();
+            res.redirect(`/user/home/${user._id}`);
+          } 
     } else {
         res.send("error: no access granted")
     }
