@@ -9,12 +9,11 @@
     </div>
     <br>
     <div class="tabbed">
-        <input type="radio" id="tab1" name="css-tabs" checked>
-        <input type="radio" id="tab2" name="css-tabs" checked>
-        <input type="radio" id="tab3" name="css-tabs" checked>
-        <input type="radio" id="tab4" name="css-tabs" checked>
+        <input type="radio" id="tab1" name="css-tabs" checked />
+        <input type="radio" id="tab2" name="css-tabs" />
+        <input type="radio" id="tab3" name="css-tabs" />
+        <input type="radio" id="tab4" name="css-tabs" />
         <ul class="tabs">
-        <input type="radio" id="tab1" name="css-tabs" checked>
             <li class="tab"><label for="tab1">Summary</label></li>
             <li class="tab"><label for="tab2">Users</label></li>
             <li class="tab"><label for="tab3">Projects</label></li>
@@ -45,7 +44,7 @@
                         <div class="viewUserContainer-<%= index %>">
                             <ul>
                                 <li><span>Total Hours: <%= userHours %> </span> </li>
-                                <li><span>Pay Rate: $<%= user.hourlyPay %></span></li>
+                                <li><span>Hourly Rate: $<%= user.hourlyPay %></span></li>
                                 <li><span>Total Earnings: <b>$<%= userEarnings %></b></span></li>
                             </ul>
                         </div>
@@ -87,10 +86,10 @@
                                         <% } %>
                                         <% }) %>
                                         <ul>
-                                            <% for (const user in userProjectHours) { %>
-                                                <b><%= user %></b> <span>: <%= userProjectHours[user] %> hours</span></li>
-                                        </ul>
+                                        <% for (const user in userProjectHours) { %>
+                                            <li><b><%= user %></b> <span>: <%= userProjectHours[user] %> hours</span></li>
                                         <% } %>
+                                    </ul>
                                     </ul>
                                 </div>
                             </div>
@@ -104,7 +103,7 @@
             <% admin.kloks.forEach((klok) => { %>
             <% klokHours += klok.hours %>
             <% }) %>
-            <legend id="total">TOTAL HOURS KLOKKED: <span id="total-num"><%= klokHours %></span></legend>
+            <legend id="total">TOTAL HOURS KLOKED: <span id="total-num"><%= klokHours %></span></legend>
         </div>
     </div>
 
@@ -115,6 +114,7 @@
             <input type="checkbox" name="add-user" id="add-user" class="hide-input">
             <div class="toggle-el">
                 <legend>NEW USER</legend>
+                <br>
                 <form class="createUser" method="POST" action="/admin/new-user">
                     <p>
                         <label for="username">Username:</label>
@@ -132,7 +132,7 @@
                         <label for="position">Position:</label>
                         <input id="position" type="text" name="position" required="true"/>
                     </p><p>
-                        <label for="hourlyPay">Pay Rate:</label>
+                        <label for="hourlyPay">Hourly Rate:</label>
                         <input id="hourlyPay" type="number" name="hourlyPay" required="true"/>
                         </p><p></p>
                         <button id="addbutton" type="submit">ADD USER</button>
@@ -150,7 +150,7 @@
                 <input type="checkbox" name="edit-user" id="edit-user-<%= index %>" class="hide-input">
                 <div class="etoggle-el">
                     <div id="editUserContainer-<%= index %>">
-                        <h2>EDIT USER</h2>
+                        <h4>EDIT USER</h4>
                         <form class="editUser" method="POST" action="/admin/edit-user/<%= user.id %>?_method=PUT">
                             <p>
                                 <label for="username">Username:</label>
@@ -168,7 +168,7 @@
                                 <label for="position">Position:</label>
                                 <input id="position" type="text" name="position" value="<%= user.position %>" required="true"/>
                             </p><p>
-                                <label for="hourlyPay">Pay Rate:</label>
+                                <label for="hourlyPay">Hourly Rate:</label>
                                 <input id="hourlyPay" type="number" name="hourlyPay" value="<%= user.hourlyPay %>" required="true"/>
                             </p><p>
                                 <input type="hidden" name="userID" value="<%= user.id %>">
@@ -178,8 +178,7 @@
                         </form>
                     </div>
                     <div id="deleteUserContainer-<%= index %>">
-                        <h2>DELETE USER</h2>
-                        <h5>WARNING: NO GOING BACK FROM HERE</h5>
+                        <h4>DELETE USER</h4>
                         <form class="deleteUser" method="POST" action="/admin/edit-user/<%= user.id %>/delete?_method=DELETE">
                             <input type="hidden" name="userID" value="<%= user.id %>">    
                             <button type="submit">DELETE</button>
@@ -201,6 +200,7 @@
             <input type="checkbox" name="one" id="item-3" class="hide-input">
             <div class="toggle-el">
                 <legend> NEW PROJECT</legend>
+                <br>
                 <form class="createProject" method="POST" action="/admin/new-project">
                     <p>
                         <label for="name">Name:</label>
@@ -218,6 +218,7 @@
                     <input id="projectType" type="text" name="projectType" required="true"/>
                     </p><p>
                     <button type="submit">ADD PROJECT</button></p>
+                    <br>
                 </form>
             </div> 
         </div>
@@ -256,7 +257,6 @@
                     </div>
                     <div id="deleteProjectContainer-<%= index %>">
                         <h4>DELETE PROJECT</h4>
-                        <h6>WARNING: NO GOING BACK FROM HERE</h6>
                         <form class="deleteUser" method="POST" action="/admin/edit-project/<%= project.id %>/delete?_method=DELETE">
                                 <input type="hidden" name="projectID" value="<%= project.id %>">    
                                 <button type="submit">DELETE</button>
@@ -276,6 +276,7 @@
             <input type="checkbox" name="one" id="item-4" class="hide-input">
             <div class="toggle-el">
                 <legend>NEW KLOK</legend>
+                <br>
                 <form class="createKlok" method="POST" action="/admin/new-klok">
                     <p>
                         <label for="user">User:</label>
@@ -307,6 +308,7 @@
                     </p><p>
                         <button type="submit">Add Klok</button>
                     </p>
+                    <br>
                 </form>
             </div>
         </div>
@@ -347,7 +349,6 @@
                         </div>
                         <div class="deleteKlokContainer-<%= index %>">
                             <h4>DELETE KLOK</h4>
-                            <h6>WARNING: NO GOING BACK FROM HERE</h6>
                             <form class="deleteKlok" method="POST" action="/admin/edit-klok/<%= klokkie.id %>/delete?_method=DELETE">
                                     <input type="hidden" name="klokkieID" value="<%= klokkie.id %>">    
                                     <button type="submit">DELETE</button>

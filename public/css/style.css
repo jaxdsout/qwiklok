@@ -332,7 +332,7 @@ overflow: hidden;
 
 .etoggle-el {
   padding: 0.5rem;
-  background: white;
+  background: #eee;
   transition: all 0.2s ease;
   opacity: 1;
   display: flex;
