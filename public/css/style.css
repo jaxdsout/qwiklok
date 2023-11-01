@@ -185,6 +185,7 @@ h5::before{
 }
 
 
+
 nav img {
   justify-content: center;
   width: 40px;
@@ -329,12 +330,36 @@ column-gap: 2rem;
 overflow: hidden;
 }
 
+.etoggle-el {
+  padding: 0.5rem;
+  background: white;
+  transition: all 0.2s ease;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+  column-count: 2;
+  min-height: 10px;
+  max-height: 300px;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  column-gap: 2rem;
+  overflow: hidden;
+  }
+
 input[type=checkbox].hide-input:not(:checked) + .toggle-el {
 height: 0;
 opacity: 0;
 padding-top: 0;
 padding-bottom: 0;
 }
+
+input[type=checkbox].hide-input:not(:checked) + .etoggle-el {
+  height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  }
 
 input.hide-input {
 position: absolute;
@@ -343,7 +368,6 @@ left: -999em;
 
 label.toggle {
 justify-content: right;
-
 text-align: center;
 display: inline-block;
 cursor: pointer;
@@ -355,6 +379,21 @@ background: #eee;
 border-radius: 3px;
 user-select: none;
 }
+
+label.etoggle {
+  justify-content: right;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  padding: .4rem .4rem;
+  color: black;
+  font-size: .7rem;
+  font-weight: 700;
+  background: #eee;
+  margin-left: .5rem;
+  border-radius: 3px;
+  user-select: none;
+  }
 
 form { display: table; }
 p { display: table-row; }

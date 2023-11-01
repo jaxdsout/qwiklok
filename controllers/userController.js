@@ -26,6 +26,9 @@ const userLogin = async (req, res) => {
         if (req.body.PIN) {
             if (req.body.PIN.length === 5) {
                 const user = await User.findOne({ PIN: req.body.PIN })
+                if (!user) {
+                    return res.send("no user found")
+                }
                 const verify = bcrypt.compare(req.body.PIN, user.PIN);
                 if (!verify) {
                     return res.send("invalid PIN")
