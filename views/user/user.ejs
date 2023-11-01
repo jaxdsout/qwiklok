@@ -1,12 +1,12 @@
 <div class="page-content">
     <div id="adminnav">
         <img src="https://i.ibb.co/m9bqXsx/clock-1.png">
-            <% if (user) { %>
-                <h3> Hi, <%= user.fullname %>!</h3>
-                <br>
+        <% if (user) { %>
+            <h3> Hi, <%= user.fullname %>!</h3>
+            <br>
             <% } %>
             <div class="logout">
-                <button onclick="window.location.href='/user/logout'">Logout</button>
+                <button class="graybtn" onclick="window.location.href='/user/logout'">LOGOUT</button>
             </div>
     </div>
     <div class="maincontainer klok">
@@ -14,31 +14,31 @@
         <legend>KLOK YOUR HOURS</legend>
         <br>
         <form class="createKlok" method="POST" action="/user/home/<%= user._id %>/klok">
-            <div>
+            <p>
                 <label for="project">Project:</label>
-                <select name="project" id="project" required="true">
+                <select class="input" name="project" id="project" required="true">
                     <% projects.forEach((project) => { %>
                         <option value="<%= project.name %>">
                             <%= project.name %>
                         </option>
                     <% }) %>
                 </select>
-            </div>
-            <div>
+            </p>
+            <p>
                 <label for="date">Date:</label>
-                <input id="date" type="date" name="date" required="true"/>
-            </div>
-            <div>
+                <input class="input" id="date" type="date" name="date" required="true"/>
+            </p>
+            <p>
                 <label for="hours">Hours:</label>
-                <input id="hours" type="number" name="hours" required="true"/>
-            </div>
-            <div>
+                <input class="input" id="hours" type="number" name="hours" required="true"/>
+            </p>
+            <p>
                 <label for="description">Description:</label>
-                <input id="description" type="text" size="50" name="description" required="true"/>
-            </div>
-            <div>
-                <button type="submit">Klok Time</button>
-            </div>
+                <input class="input" id="description" type="text" size="50" name="description" required="true"/>
+            </p>
+            <p>
+                <button class="graybtn" type="submit">KLOK TIME</button>
+            </p>
         </div>
         <br>
         <div class="recentKloks">
@@ -59,5 +59,3 @@
         </div>  
     </div>
 </div>
-
-
