@@ -4,9 +4,8 @@ const jwt = require('jsonwebtoken')
 const { JWT_KEY_SECRET } = require("../config")
 
 
-
 // NEW - SEND FORM
-const sendNewAdminForm = (req, res, next) => {
+const sendNewAdminForm = (req, res) => {
     let entryAccess = false
     if(req.cookies.admintoken) {
         entryAccess = true
@@ -15,20 +14,21 @@ const sendNewAdminForm = (req, res, next) => {
 }
 
 
-// // NEW - POST NEW ADMIN
+// NEW - POST NEW ADMIN
 const createNewAdmin = async (req, res) => {
-    const requiredFields = ['email', 'password', 'fullname', 'organization'];
-    for(let field of requiredFields) {
-        if(!(field in req.body)) {
-            const errorMessage = `missing ${field} in request body`;
-            return res.send(errorMessage);
-    }}
-    req.body.email = req.body.email.toLowerCase()
-    const { email, password, fullname, organization } = req.body
+    const inputEmail = req.body.email.toLowerCase()
+    const existingEmail = await Admin.findOne({ email: inputEmail });
+    if (existingEmail) {
+        return res.send("Email is already in use");
+    }
     try {
-        const encryptedPw = await bcrypt.hash(password, 12)
-        const newAdmin = { email, password: encryptedPw, fullname, organization }
-        const admin = await Admin.create(newAdmin)
+        const encryptedPw = await bcrypt.hash(req.body.password, 12)
+        const admin = await Admin.create({
+            email: inputEmail,
+            password: encryptedPw,
+            fullname: req.body.fullname,
+            organization: req.body.organization
+        })
         const token = jwt.sign(
             { userId: admin.id, email: admin.email },
             JWT_KEY_SECRET,
@@ -42,16 +42,21 @@ const createNewAdmin = async (req, res) => {
 
 
 // LOGIN - GET
-const sendLoginForm = (req, res, next) => {
+const sendLoginForm = async (req, res) => {
+    const token = req.cookies.admintoken
     let entryAccess = false;
-    if(req.cookies.admintoken) {
+    if(token) {
         entryAccess = true
+        const decodedToken = jwt.verify(token, JWT_KEY_SECRET)
+        const adminID = decodedToken.userId
+        const admin = await Admin.findOne({ _id: adminID })
+        res.redirect(`/admin/home/${admin.id}`)
     } 
     res.render('admin/login.ejs', {entryAccess})
 }
 
 // LOGIN - POST 
-const adminLogin = async (req, res, next) => {
+const adminLogin = async (req, res) => {
     try{
         req.body.email = req.body.email.toLowerCase();
         const admin = await Admin.findOne({ email: req.body.email })
@@ -107,36 +112,8 @@ const adminHome = async (req, res) => {
 }
 
 
-// FIND ALLS
 
-const findAllUsers = async (req, res) => {
-    try {
-        const users = await User.find()
-        res.json({
-        "data": users,
-        "status": 200
-        })
-    }
-    catch (error) {
-      next(error);
-    }
-}
-
-const findAllProjects = async (req, res) => {
-    try {
-        const projects = await Project.find()
-        res.json({
-        "data": projects,
-        "status": 200
-        })
-    }
-    catch (error) {
-      next(error);
-    }
-}
-
-
-// C(R)UD USER
+// CRUD USER
 
 const createUser = async (req, res) => {
     const token = req.cookies.admintoken
@@ -149,6 +126,10 @@ const createUser = async (req, res) => {
             const adminId = decodedToken.userId
             const admin = await Admin.findOne({ _id: adminId })
             if (admin) {
+                const exisitingPIN = await User.findOne({ PIN: req.body.PIN });
+                if (exisitingPIN) {
+                    return res.send("PIN is already in use");
+                }
                 const user = await User.create({
                     username: req.body.username,
                     PIN: req.body.PIN,
@@ -171,6 +152,19 @@ const createUser = async (req, res) => {
 } else {
     res.send("error: no access granted")
 }
+}
+
+const findAllUsers = async (req, res) => {
+    try {
+        const users = await User.find()
+        res.json({
+        "data": users,
+        "status": 200
+        })
+    }
+    catch (error) {
+      next(error);
+    }
 }
 
 const updateUser = async (req, res) => {
@@ -241,7 +235,7 @@ const deleteUser = async (req, res) => {
 
 
 
-// C(R)UD PROJECT
+// CRUD PROJECT
 
 const createProject = async (req, res) => {
     const token = req.cookies.admintoken
@@ -271,6 +265,19 @@ const createProject = async (req, res) => {
         }
     } else {
         res.send("error: no access granted")
+    }
+}
+
+const findAllProjects = async (req, res) => {
+    try {
+        const projects = await Project.find()
+        res.json({
+        "data": projects,
+        "status": 200
+        })
+    }
+    catch (error) {
+      next(error);
     }
 }
 
@@ -341,7 +348,7 @@ const deleteProject = async (req, res) => {
 }
 
 
-// (CR)UD KLOK
+// C(R)UD KLOK
 
 const createKlok = async (req, res) => {
     const token = req.cookies.admintoken
@@ -358,7 +365,6 @@ const createKlok = async (req, res) => {
                     description: req.body.description,
                     hours: req.body.hours
                 })
-                console.log(req.body.project)
                 const user = await User.findOne({ fullname: req.body.user })
                 user.kloks.push(klok)
                 await user.save()
@@ -426,12 +432,15 @@ const deleteKlok = async (req, res) => {
                 const klokID = req.body.klokkieID;
                 const klok = await Klok.findOne({ _id: klokID });
                 if (klok) {
-                    admin.kloks.pull(klok._id)
-                    await admin.save()
-                    const deletedKlok = await Klok.deleteOne(klok)
+                    const user = await User.findOne({ fullname: klok.user });
+                    user.kloks.pull(klok._id);
+                    await user.save();
+                    admin.kloks.pull(klok._id);
+                    await admin.save();
+                    await Klok.deleteOne({ _id: klok._id });
                     res.redirect(`/admin/home/${admin.id}`)
                 } else {
-                    res.send("project not found")
+                    res.send("klok not found")
                 }
             } else {
                 return res.send("Admin not found")
