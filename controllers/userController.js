@@ -80,7 +80,7 @@ const userHome = async (req, res) => {
         }
 }
 
-// CREATE
+// CREATE KLOK
 
 const createKlok = async (req, res) => {
     if (req.cookies.usertoken) {
