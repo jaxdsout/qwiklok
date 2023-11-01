@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_KEY_SECRET } = require("../config")
 
-
 // NEW - SEND FORM
 const sendNewAdminForm = (req, res) => {
     let entryAccess = false
@@ -12,7 +11,6 @@ const sendNewAdminForm = (req, res) => {
     } 
     res.render('admin/newadmin.ejs', {entryAccess})
 }
-
 
 // NEW - POST NEW ADMIN
 const createNewAdmin = async (req, res) => {
@@ -39,7 +37,6 @@ const createNewAdmin = async (req, res) => {
         console.error(error)
     }
 }
-
 
 // LOGIN - GET
 const sendLoginForm = async (req, res) => {
@@ -93,7 +90,6 @@ const adminLogout = (req, res, next) => {
     }
 }
 
-
 // ADMIN HOME PAGE
 const adminHome = async (req, res) => {
         let entryAccess = false;
@@ -110,8 +106,6 @@ const adminHome = async (req, res) => {
             res.send("error: no access granted")
         }
 }
-
-
 
 // CRUD USER
 
@@ -233,8 +227,6 @@ const deleteUser = async (req, res) => {
     } 
 }
 
-
-
 // CRUD PROJECT
 
 const createProject = async (req, res) => {
@@ -315,7 +307,6 @@ const updateProject = async (req, res) => {
     }
 }
 
-
 const deleteProject = async (req, res) => {
     const token = req.cookies.admintoken
     if (token) {
@@ -346,7 +337,6 @@ const deleteProject = async (req, res) => {
         res.send("error: no access granted") 
     } 
 }
-
 
 // C(R)UD KLOK
 
@@ -452,7 +442,6 @@ const deleteKlok = async (req, res) => {
         res.send("error: no access granted") 
     } 
 }
-
 
 module.exports = {
     createUser,

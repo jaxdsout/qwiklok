@@ -10,11 +10,10 @@
     <br>
     <div class="tabbed">
         <input type="radio" id="tab1" name="css-tabs" checked>
-        <input type="radio" id="tab2" name="css-tabs" checked>
-        <input type="radio" id="tab3" name="css-tabs" checked>
-        <input type="radio" id="tab4" name="css-tabs" checked>
+        <input type="radio" id="tab2" name="css-tabs">
+        <input type="radio" id="tab3" name="css-tabs">
+        <input type="radio" id="tab4" name="css-tabs">
         <ul class="tabs">
-        <input type="radio" id="tab1" name="css-tabs" checked>
             <li class="tab"><label for="tab1">Summary</label></li>
             <li class="tab"><label for="tab2">Users</label></li>
             <li class="tab"><label for="tab3">Projects</label></li>
@@ -45,7 +44,7 @@
                         <div class="viewUserContainer-<%= index %>">
                             <ul>
                                 <li><span>Total Hours: <%= userHours %> </span> </li>
-                                <li><span>Pay Rate: $<%= user.hourlyPay %></span></li>
+                                <li><span>Hourly Pay Rate: $<%= user.hourlyPay %></span></li>
                                 <li><span>Total Earnings: <b>$<%= userEarnings %></b></span></li>
                             </ul>
                         </div>
@@ -102,7 +101,7 @@
             <% admin.kloks.forEach((klok) => { %>
             <% klokHours += klok.hours %>
             <% }) %>
-            <legend id="total">TOTAL HOURS KLOKKED: <span id="total-num"><%= klokHours %></span></legend>
+            <legend id="total">TOTAL HOURS KLOKED: <span id="total-num"><%= klokHours %></span></legend>
         </div>
     </div>
 
@@ -166,7 +165,7 @@
                                 <label for="position">Position:</label>
                                 <input id="position" type="text" name="position" value="<%= user.position %>" required="true"/>
                             </p><p>
-                                <label for="hourlyPay">Pay Rate:</label>
+                                <label for="hourlyPay">Hourly Pay Rate:</label>
                                 <input id="hourlyPay" type="number" name="hourlyPay" value="<%= user.hourlyPay %>" required="true"/>
                             </p><p>
                                 <input type="hidden" name="userID" value="<%= user.id %>">
@@ -176,7 +175,7 @@
                     </div>
                     <div id="deleteUserContainer-<%= index %>">
                         <h2>DELETE USER</h2>
-                        <h5>WARNING: NO GOING BACK FROM HERE</h5>
+                        <h5>WARNING: DELETING A USER IS IRREVERSIBLE!</h5>
                         <form class="deleteUser" method="POST" action="/admin/edit-user/<%= user.id %>/delete?_method=DELETE">
                             <input type="hidden" name="userID" value="<%= user.id %>">    
                             <button type="submit">Delete User</button>
@@ -251,7 +250,7 @@
                     </div>
                     <div id="deleteProjectContainer-<%= index %>">
                         <h4>DELETE PROJECT</h4>
-                        <h6>WARNING: NO GOING BACK FROM HERE</h6>
+                        <h6>WARNING: DELETING A PROJECT IS IRREVERSIBLE!</h6>
                         <form class="deleteUser" method="POST" action="/admin/edit-project/<%= project.id %>/delete?_method=DELETE">
                             <fieldset>
                                 <input type="hidden" name="projectID" value="<%= project.id %>">    
@@ -344,7 +343,7 @@
                         </div>
                         <div class="deleteKlokContainer-<%= index %>">
                             <h4>DELETE KLOK</h4>
-                            <h6>WARNING: NO GOING BACK FROM HERE</h6>
+                            <h6>WARNING: DELETING A KLOK IS IRREVERSIBLE!</h6>
                             <form class="deleteKlok" method="POST" action="/admin/edit-klok/<%= klokkie.id %>/delete?_method=DELETE">
                                 <fieldset>
                                     <input type="hidden" name="klokkieID" value="<%= klokkie.id %>">    
