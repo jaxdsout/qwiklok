@@ -2,12 +2,12 @@
   "name": "punching-time",
   "version": "1.0.0",
   "engines": {
-    "node": "21.4.0"
+    "node": "21.4.0",
+    "npm": "10.2.4"
   },
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "keywords": [],
